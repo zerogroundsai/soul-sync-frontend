@@ -88,6 +88,9 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  overscroll-behavior: contain; /* Prevent scroll chain */
+  touch-action: pan-y pinch-zoom; /* Allow only vertical scrolling and pinch zoom */
 }
 
 .sidebar.visible {
@@ -110,6 +113,7 @@
   visibility: hidden;
   transition: all 0.3s ease;
   pointer-events: none;
+  touch-action: none; /* Disable all touch actions on overlay */
 }
 
 .sidebar-overlay.visible {
@@ -118,31 +122,39 @@
   pointer-events: all;
 }
 
+/* Story list section improvements */
+.story-list-section {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 2rem;
+  padding-right: 0.5rem;
+  overscroll-behavior: contain; /* Prevent scroll chain */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.story-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  touch-action: pan-y; /* Only allow vertical touch actions */
+}
+
 /* Ensure the sidebar is above the overlay */
 .sidebar {
   z-index: 1001;
+  isolation: isolate; /* Create new stacking context */
 }
 
 /* Ensure the hamburger button is above both sidebar and overlay */
 .hamburger-button {
   z-index: 1004;
+  isolation: isolate;
 }
 
 /* Mobile App Header should be above all */
 .mobile-app-header {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background-color: var(--background-darker);
   z-index: 1003;
-  padding: 0 1rem;
-  padding-left: calc(44px + 1.5rem);
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border-color);
+  isolation: isolate;
 }
 
 .app-title {
