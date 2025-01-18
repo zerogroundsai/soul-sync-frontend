@@ -15,8 +15,8 @@
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
 
   /* Mobile-specific variables */
-  --mobile-padding: 1rem;
-  --mobile-border-radius: 12px;
+  --mobile-padding: 0.1rem;
+  --mobile-border-radius: 1px;
 }
 
 /* App container */
@@ -25,7 +25,6 @@
   min-height: 100vh;
   width: 100%;
   background: linear-gradient(135deg, #1e1e2f 0%, #1b1b2d 100%);
-  padding: var(--mobile-padding);
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 0.875rem;
 }
@@ -169,15 +168,13 @@
   background: rgba(27, 27, 45, 0.95);
   backdrop-filter: blur(10px);
   z-index: 1003;
-  padding: 0 4rem;
   box-shadow: var(--shadow-md);
-  border-bottom: 1px solid var(--border-color);
 }
 
 .mobile-app-title {
   color: var(--text-primary);
   font-size: 1.25rem;
-  font-weight: 800;
+  font-weight: 600;
   text-align: center;
   line-height: 60px;
   letter-spacing: -0.025em;
@@ -197,18 +194,8 @@
   }
 
   .main-content {
-    padding-top: calc(60px + 1rem) !important;
-  }
-
-  .hamburger-button {
-    top: 8px;
-    right: 16px;
-  }
-
-  .main-content {
     padding: 0.75rem;
     padding-top: calc(60px + 0.75rem);
-    padding-right: 0.75rem;
     max-width: 100%;
   }
 }
@@ -321,7 +308,6 @@
 .story-container {
   max-width: 1200px;
   margin: 0 auto 1.5rem;
-  padding: 1.5rem;
   background: rgba(27, 27, 45, 0.9);
   backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -369,7 +355,7 @@
   position: sticky; /* Make header sticky */
   top: 0;
   background-color: var(--background-darker);
-  padding: 1rem;
+  padding: 0.5rem;
   margin: -1rem -1rem 1rem -1rem; /* Compensate for parent padding */
   border-radius: 16px 16px 0 0;
   z-index: 2;
@@ -652,13 +638,19 @@
   }
 
   .story-container,
-  .sentiment-section {
+  .sentiment-section,
+  .confidence-section {
     padding: 1rem;
-    margin: 1rem auto;
+    margin: 5rem auto;
+    width: 95%;
   }
 
   .sentiment-grid {
-    grid-template-columns: 1fr;
+    padding: 0 0.25rem;
+  }
+
+  .next-button-container {
+    padding: 0 1rem;
   }
 
   .app-title {
