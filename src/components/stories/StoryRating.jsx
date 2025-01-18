@@ -603,6 +603,8 @@ export function StoryRating() {
       setCurrentStep("tones");
     } else if (currentStep === "tones") {
       setCurrentStep("facialExpressions");
+    } else if (currentStep === "facialExpressions") {
+      setCurrentStep("confidence");
     } else {
       handleSubmit();
     }
@@ -652,7 +654,14 @@ export function StoryRating() {
           ></div>
         </button>
 
-        <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
+        <div
+          className={`sidebar-overlay ${isSidebarVisible ? "visible" : ""}`}
+        />
+
+        <div
+          className={`sidebar ${isSidebarVisible ? "visible" : ""}`}
+          onClick={(e) => e.stopPropagation()}
+        >
           <h1 className="app-title">Soul Sync</h1>
           <p className="app-subtitle">Sentiment Rating Tool</p>
           <div className="story-list-section">{renderStoryList()}</div>
@@ -688,7 +697,14 @@ export function StoryRating() {
           ></div>
         </button>
 
-        <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
+        <div
+          className={`sidebar-overlay ${isSidebarVisible ? "visible" : ""}`}
+        />
+
+        <div
+          className={`sidebar ${isSidebarVisible ? "visible" : ""}`}
+          onClick={(e) => e.stopPropagation()}
+        >
           <h1 className="app-title">Soul Sync</h1>
           <p className="app-subtitle">Sentiment Rating Tool</p>
           <div className="story-list-section">{renderStoryList()}</div>
@@ -723,7 +739,12 @@ export function StoryRating() {
         ></div>
       </button>
 
-      <div className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
+      <div className={`sidebar-overlay ${isSidebarVisible ? "visible" : ""}`} />
+
+      <div
+        className={`sidebar ${isSidebarVisible ? "visible" : ""}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         <h1 className="app-title">Soul Sync</h1>
         <p className="app-subtitle">Sentiment Rating Tool</p>
         <div className="story-list-section">{renderStoryList()}</div>
@@ -733,58 +754,66 @@ export function StoryRating() {
         className={`main-content ${isSidebarVisible ? "sidebar-visible" : ""}`}
       >
         <div className="story-container">
+          <Title order={3} className="sentiment-title">
+            User Story
+          </Title>
           <Text className="story-text">{currentStory?.text}</Text>
         </div>
 
-        <div
-          className={`confidence-section ${
-            isConfidenceCollapsed ? "collapsed" : ""
-          }`}
-        >
+        {currentStep === "confidence" && (
           <div
-            className="confidence-header"
-            onClick={() => setIsConfidenceCollapsed(!isConfidenceCollapsed)}
+            className={`confidence-section ${
+              isConfidenceCollapsed ? "collapsed" : ""
+            }`}
           >
-            <Title order={3} className="sentiment-title">
-              Overall Confidence
-            </Title>
-            <Text className="cl-value-description">
-              Your confidence level in the overall story.
-            </Text>
-          </div>
-          <div className="confidence-content">
-            <div className="confidence-slider">
-              <Slider
-                value={ratings.overallConfidence}
-                onChange={(value) =>
-                  setRatings((prev) => ({ ...prev, overallConfidence: value }))
-                }
-                min={0}
-                max={1}
-                step={0.0001}
-                label={null}
-                precision={4}
-                size="md"
-                styles={{
-                  track: { backgroundColor: "rgba(255, 255, 255, 0.1)" },
-                  bar: {
-                    background:
-                      "linear-gradient(90deg, #EF4444 0%, #22C55E 100%)",
-                  },
-                  thumb: {
-                    backgroundColor: "var(--background-darker)",
-                    borderColor: "var(--text-primary)",
-                    width: 24,
-                    height: 24,
-                  },
-                }}
-              />
-              <Text className="confidence-value">
-                {ratings.overallConfidence.toFixed(4)}
+            <div
+              className="confidence-header"
+              onClick={() => setIsConfidenceCollapsed(!isConfidenceCollapsed)}
+            >
+              <Title order={3} className="sentiment-title">
+                Overall Confidence
+              </Title>
+              <Text className="cl-value-description">
+                Your confidence level in the overall story.
               </Text>
             </div>
+            <div className="confidence-content">
+              <div className="confidence-slider">
+                <Slider
+                  value={ratings.overallConfidence}
+                  onChange={(value) =>
+                    setRatings((prev) => ({
+                      ...prev,
+                      overallConfidence: value,
+                    }))
+                  }
+                  min={0}
+                  max={1}
+                  step={0.0001}
+                  label={null}
+                  precision={4}
+                  size="md"
+                  styles={{
+                    track: { backgroundColor: "rgba(255, 255, 255, 0.1)" },
+                    bar: {
+                      background:
+                        "linear-gradient(90deg, #EF4444 0%, #22C55E 100%)",
+                    },
+                    thumb: {
+                      backgroundColor: "var(--background-darker)",
+                      borderColor: "var(--text-primary)",
+                      width: 24,
+                      height: 24,
+                    },
+                  }}
+                />
+                <Text className="confidence-value">
+                  {ratings.overallConfidence.toFixed(4)}
+                </Text>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
 
         {currentStep === "sentiments" && (
           <div className="sentiment-section">
@@ -976,6 +1005,8 @@ export function StoryRating() {
               ? "Next: Tones"
               : currentStep === "tones"
               ? "Next: Facial Expressions"
+              : currentStep === "facialExpressions"
+              ? "Next: Overall Confidence"
               : "Submit"}
           </Button>
         </div>
