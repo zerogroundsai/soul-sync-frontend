@@ -12,7 +12,9 @@ export function AuthProvider({ children }) {
 
   const login = async (email, name, pin) => {
     try {
+      console.log("Making login request to:", import.meta.env.VITE_API_URL);
       console.log("Login attempt with:", { email, name, pin });
+
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/auth/login`,
         {
@@ -25,9 +27,17 @@ export function AuthProvider({ children }) {
         }
       );
 
+      console.log("Response status:", response.status);
+
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || "Login failed");
+        const errorData = await response.text();
+        console.error("Login failed:", errorData);
+        try {
+          const parsedError = JSON.parse(errorData);
+          throw new Error(parsedError.message || "Login failed");
+        } catch (parseError) {
+          throw new Error(errorData || "Login failed");
+        }
       }
 
       const data = await response.json();
