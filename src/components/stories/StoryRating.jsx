@@ -578,10 +578,17 @@ export function StoryRating() {
   ).length;
   const totalStoriesCount = stories.length;
 
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
   if (loading) {
     return (
       <div className="app-container">
         <div className="mobile-app-header">
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
           <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
           <div className="story-counter">
             {completedStoriesCount}/{totalStoriesCount}
@@ -599,6 +606,9 @@ export function StoryRating() {
     return (
       <div className="app-container">
         <div className="mobile-app-header">
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
           <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
           <div className="story-counter">
             {completedStoriesCount}/{totalStoriesCount}
@@ -615,6 +625,9 @@ export function StoryRating() {
   return (
     <div className="app-container">
       <div className="mobile-app-header">
+        <button className="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
         <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
         <div className="story-counter">
           {completedStoriesCount}/{totalStoriesCount}

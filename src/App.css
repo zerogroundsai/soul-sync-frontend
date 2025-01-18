@@ -1404,3 +1404,21 @@
 .story-counter:hover {
   background-color: var(--accent-hover);
 }
+
+.logout-button {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: var(--text-primary);
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+  color: var(--accent-color);
+}
