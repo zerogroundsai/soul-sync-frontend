@@ -19,6 +19,7 @@
   width: 100%;
   background-color: var(--background-dark);
   font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
 }
 
 /* Hamburger Menu Button */
@@ -97,7 +98,7 @@
 
 .app-title {
   color: var(--text-primary);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 800;
   margin: 0;
   text-align: center;
@@ -107,7 +108,7 @@
 
 .app-subtitle {
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-align: center;
   margin: 0.5rem 0 1.5rem;
   font-weight: 500;
@@ -193,8 +194,8 @@
 }
 
 .story-text {
-  font-size: 0.9rem;
-  line-height: 1.7;
+  font-size: 0.8rem;
+  line-height: 1.6;
   color: var(--text-primary);
   white-space: pre-wrap;
   margin: 0;
@@ -245,7 +246,7 @@
 .confidence-header .cl-value-description {
   margin-bottom: 0;
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .confidence-slider {
@@ -285,7 +286,7 @@
   text-align: right;
   color: var(--text-primary);
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   padding-left: 0.5rem;
 }
 
@@ -298,8 +299,8 @@
 
 .button-next {
   background-color: var(--accent-color) !important;
-  height: 40px !important;
-  font-size: 1rem !important;
+  height: 36px !important;
+  font-size: 0.9rem !important;
   font-weight: 600 !important;
   transition: all 0.2s ease !important;
   width: 100% !important;
@@ -404,11 +405,11 @@
   }
 
   .app-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .app-subtitle {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     margin-bottom: 1rem;
   }
 }
@@ -417,7 +418,7 @@
 .sentiment-title {
   color: var(--text-primary);
   margin-bottom: 1.5rem;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: -0.025em;
 }
@@ -454,18 +455,18 @@
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: 0.025em;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .sentiment-value {
   color: var(--text-secondary);
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .sentiment-description {
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   margin-top: 0.25rem;
   line-height: 1.4;
 }
@@ -546,7 +547,7 @@
 
 .completion-title {
   color: var(--text-primary);
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
   text-align: center;
   margin-bottom: 1.5rem;
@@ -555,7 +556,7 @@
 
 .completion-text {
   color: var(--text-secondary);
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.6;
   text-align: center;
   margin-bottom: 2.5rem;
@@ -564,8 +565,8 @@
 .completion-card .button-logout {
   width: 100%;
   max-width: 300px;
-  height: 48px;
-  font-size: 1.125rem;
+  height: 44px;
+  font-size: 1rem;
   font-weight: 600;
 }
 
@@ -632,7 +633,7 @@
 
 .login-title {
   color: var(--text-primary);
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 600;
   text-align: center;
   margin-bottom: 0.5rem;
@@ -640,7 +641,7 @@
 
 .login-subtitle {
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -660,7 +661,7 @@
 
 .input-label {
   color: var(--text-primary);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 500;
 }
 
@@ -670,7 +671,7 @@
   border-radius: 6px;
   background: var(--background-darker);
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: all 0.2s ease;
 }
 
@@ -691,7 +692,7 @@
 }
 
 .input-hint {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
   margin-top: 0.25rem;
 }
@@ -725,7 +726,7 @@
 
 .error-message {
   color: #ef4444;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-top: 0.5rem;
   text-align: center;
 }
@@ -809,7 +810,7 @@
 
 .welcome-title {
   color: var(--text-primary);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 2rem;
   text-align: center;
@@ -822,7 +823,7 @@
 
 .section-title {
   color: var(--text-primary);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -836,8 +837,8 @@
 .welcome-list li {
   margin-bottom: 0.75rem;
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.8rem;
+  line-height: 1.5;
   position: relative;
   padding-left: 1.5rem;
 }
@@ -853,7 +854,7 @@
   }
 
   .welcome-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin-bottom: 1rem;
   }
 
@@ -862,7 +863,7 @@
   }
 
   .welcome-list li {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     margin-bottom: 0.875rem;
   }
 }
