@@ -213,6 +213,69 @@
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
+  max-height: calc(100vh - 400px); /* Limit height for scrolling */
+  position: relative; /* For fixed header */
+}
+
+.sentiment-title {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  position: sticky; /* Make header sticky */
+  top: 0;
+  background-color: var(--background-darker);
+  padding: 1rem;
+  margin: -1rem -1rem 1rem -1rem; /* Compensate for parent padding */
+  border-radius: 16px 16px 0 0;
+  z-index: 2;
+}
+
+/* Sentiment Grid */
+.sentiment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  overflow-y: auto; /* Enable scrolling */
+  padding: 0 0.5rem; /* Add some padding for scrollbar */
+}
+
+/* Scrollbar styling for sentiment grid */
+.sentiment-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sentiment-grid::-webkit-scrollbar-track {
+  background: var(--background-dark);
+  border-radius: 4px;
+}
+
+.sentiment-grid::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .sentiment-section {
+    max-height: calc(100vh - 300px); /* Adjust height for mobile */
+    margin: 0.75rem auto;
+  }
+
+  .sentiment-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 0.75rem;
+    padding: 0 0.25rem; /* Smaller padding on mobile */
+  }
+
+  .sentiment-title {
+    padding: 0.75rem;
+    margin: -0.75rem -0.75rem 0.75rem -0.75rem;
+    font-size: 1rem;
+  }
 }
 
 .sentiment-section:last-of-type {
@@ -229,6 +292,8 @@
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .confidence-header {
@@ -236,6 +301,49 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 2rem; /* Space for the arrow */
+}
+
+.confidence-header::after {
+  content: "";
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--text-secondary);
+  border-bottom: 2px solid var(--text-secondary);
+  transform: translateY(-75%) rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.confidence-section.collapsed .confidence-header::after {
+  transform: translateY(-25%) rotate(-135deg);
+}
+
+.confidence-content {
+  transition: all 0.3s ease;
+  opacity: 1;
+  max-height: 500px; /* Adjust based on your content */
+}
+
+.confidence-section.collapsed .confidence-content {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.confidence-section.collapsed {
+  padding: 1rem;
+}
+
+.confidence-section.collapsed .confidence-header {
+  margin-bottom: 0;
 }
 
 .confidence-header .sentiment-title {
@@ -1102,5 +1210,28 @@
   .welcome-list li {
     font-size: 0.75rem;
     margin-bottom: 0.75rem;
+  }
+}
+
+/* Mobile adjustments for collapsible section */
+@media (max-width: 768px) {
+  .confidence-section {
+    margin: 0.75rem auto;
+    padding: 1.25rem;
+  }
+
+  .confidence-section.collapsed {
+    padding: 1rem;
+  }
+
+  .confidence-header {
+    gap: 0.75rem;
+    padding-right: 1.5rem; /* Slightly smaller space for arrow on mobile */
+  }
+
+  .confidence-header::after {
+    right: 0.25rem;
+    width: 8px;
+    height: 8px;
   }
 }

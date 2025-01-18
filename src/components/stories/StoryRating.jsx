@@ -392,6 +392,7 @@ export function StoryRating() {
   const navigate = useNavigate();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState("sentiments");
+  const [isConfidenceCollapsed, setIsConfidenceCollapsed] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -735,8 +736,15 @@ export function StoryRating() {
           <Text className="story-text">{currentStory?.text}</Text>
         </div>
 
-        <div className="confidence-section">
-          <div className="confidence-header">
+        <div
+          className={`confidence-section ${
+            isConfidenceCollapsed ? "collapsed" : ""
+          }`}
+        >
+          <div
+            className="confidence-header"
+            onClick={() => setIsConfidenceCollapsed(!isConfidenceCollapsed)}
+          >
             <Title order={3} className="sentiment-title">
               Overall Confidence
             </Title>
@@ -744,35 +752,37 @@ export function StoryRating() {
               Your confidence level in the overall story.
             </Text>
           </div>
-          <div className="confidence-slider">
-            <Slider
-              value={ratings.overallConfidence}
-              onChange={(value) =>
-                setRatings((prev) => ({ ...prev, overallConfidence: value }))
-              }
-              min={0}
-              max={1}
-              step={0.0001}
-              label={null}
-              precision={4}
-              size="md"
-              styles={{
-                track: { backgroundColor: "rgba(255, 255, 255, 0.1)" },
-                bar: {
-                  background:
-                    "linear-gradient(90deg, #EF4444 0%, #22C55E 100%)",
-                },
-                thumb: {
-                  backgroundColor: "var(--background-darker)",
-                  borderColor: "var(--text-primary)",
-                  width: 24,
-                  height: 24,
-                },
-              }}
-            />
-            <Text className="confidence-value">
-              {ratings.overallConfidence.toFixed(4)}
-            </Text>
+          <div className="confidence-content">
+            <div className="confidence-slider">
+              <Slider
+                value={ratings.overallConfidence}
+                onChange={(value) =>
+                  setRatings((prev) => ({ ...prev, overallConfidence: value }))
+                }
+                min={0}
+                max={1}
+                step={0.0001}
+                label={null}
+                precision={4}
+                size="md"
+                styles={{
+                  track: { backgroundColor: "rgba(255, 255, 255, 0.1)" },
+                  bar: {
+                    background:
+                      "linear-gradient(90deg, #EF4444 0%, #22C55E 100%)",
+                  },
+                  thumb: {
+                    backgroundColor: "var(--background-darker)",
+                    borderColor: "var(--text-primary)",
+                    width: 24,
+                    height: 24,
+                  },
+                }}
+              />
+              <Text className="confidence-value">
+                {ratings.overallConfidence.toFixed(4)}
+              </Text>
+            </div>
           </div>
         </div>
 
