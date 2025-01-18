@@ -25,13 +25,13 @@
 /* Hamburger Menu Button */
 .hamburger-button {
   position: fixed;
-  top: 1.25rem;
-  left: 1.25rem;
-  z-index: 1001;
+  top: 8px;
+  left: 16px;
+  z-index: 1004;
   width: 44px;
   height: 44px;
   border: none;
-  background-color: var(--background-darker);
+  background-color: transparent;
   border-radius: 12px;
   cursor: pointer;
   display: flex;
@@ -41,11 +41,10 @@
   gap: 5px;
   padding: 10px;
   transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
 }
 
 .hamburger-button:hover {
-  background-color: var(--accent-color);
+  background-color: rgba(139, 92, 246, 0.1);
 }
 
 .hamburger-line {
@@ -84,18 +83,18 @@
   overflow-y: auto;
   transform: translateX(-100%);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
+  z-index: 1001;
   box-shadow: var(--shadow-md);
   opacity: 0;
   visibility: hidden;
-  pointer-events: none; /* Prevent clicks when hidden */
+  pointer-events: none;
 }
 
 .sidebar.visible {
   transform: translateX(0);
   opacity: 1;
   visibility: visible;
-  pointer-events: all; /* Enable clicks when visible */
+  pointer-events: all;
 }
 
 /* Add overlay for mobile */
@@ -117,6 +116,33 @@
   opacity: 1;
   visibility: visible;
   pointer-events: all;
+}
+
+/* Ensure the sidebar is above the overlay */
+.sidebar {
+  z-index: 1001;
+}
+
+/* Ensure the hamburger button is above both sidebar and overlay */
+.hamburger-button {
+  z-index: 1004;
+}
+
+/* Mobile App Header should be above all */
+.mobile-app-header {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: var(--background-darker);
+  z-index: 1003;
+  padding: 0 1rem;
+  padding-left: calc(44px + 1.5rem);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .app-title {
@@ -528,8 +554,14 @@
   }
 
   .hamburger-button {
-    top: 1rem;
-    left: 1rem;
+    top: 8px;
+    left: 16px;
+    background-color: transparent;
+  }
+
+  .hamburger-line {
+    background-color: var(--text-primary);
+    width: 20px;
   }
 
   .story-container,
@@ -1268,5 +1300,48 @@
     right: 0.25rem;
     width: 8px;
     height: 8px;
+  }
+}
+
+/* Mobile App Header */
+.mobile-app-header {
+  display: none; /* Hidden by default on desktop */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: var(--background-darker);
+  z-index: 1003;
+  padding: 0 1rem;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-app-title {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: -0.025em;
+  margin: 0;
+  background: linear-gradient(45deg, var(--accent-color), var(--accent-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .mobile-app-header {
+    display: block;
+  }
+
+  .main-content {
+    padding-top: calc(60px + 1rem) !important; /* Account for fixed header */
+  }
+
+  .hamburger-button {
+    top: 8px; /* Adjust hamburger position to align with header */
   }
 }

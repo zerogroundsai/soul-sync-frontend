@@ -635,9 +635,18 @@ export function StoryRating() {
     setIsSidebarVisible(!isSidebarVisible);
   };
 
+  const handleOverlayClick = (e) => {
+    // Prevent overlay clicks from dismissing the menu
+    e.stopPropagation();
+  };
+
   if (loading) {
     return (
       <div className="app-container">
+        <div className="mobile-app-header">
+          <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
+        </div>
+
         <button
           className="hamburger-button"
           onClick={toggleSidebar}
@@ -656,6 +665,7 @@ export function StoryRating() {
 
         <div
           className={`sidebar-overlay ${isSidebarVisible ? "visible" : ""}`}
+          onClick={handleOverlayClick}
         />
 
         <div
@@ -681,6 +691,10 @@ export function StoryRating() {
   if (error) {
     return (
       <div className="app-container">
+        <div className="mobile-app-header">
+          <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
+        </div>
+
         <button
           className="hamburger-button"
           onClick={toggleSidebar}
@@ -699,6 +713,7 @@ export function StoryRating() {
 
         <div
           className={`sidebar-overlay ${isSidebarVisible ? "visible" : ""}`}
+          onClick={handleOverlayClick}
         />
 
         <div
@@ -723,6 +738,10 @@ export function StoryRating() {
 
   return (
     <div className="app-container">
+      <div className="mobile-app-header">
+        <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
+      </div>
+
       <button
         className="hamburger-button"
         onClick={toggleSidebar}
@@ -739,7 +758,10 @@ export function StoryRating() {
         ></div>
       </button>
 
-      <div className={`sidebar-overlay ${isSidebarVisible ? "visible" : ""}`} />
+      <div
+        className={`sidebar-overlay ${isSidebarVisible ? "visible" : ""}`}
+        onClick={handleOverlayClick}
+      />
 
       <div
         className={`sidebar ${isSidebarVisible ? "visible" : ""}`}
