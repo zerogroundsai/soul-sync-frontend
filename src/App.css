@@ -1,15 +1,22 @@
 /* Modern theme variables */
 :root {
-  --background-dark: #0f172a;
-  --background-darker: #1e293b;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --border-color: rgba(148, 163, 184, 0.1);
-  --accent-color: #8b5cf6;
-  --accent-hover: #7c3aed;
-  --success-color: #22c55e;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  /* Core colors */
+  --background-dark: #1e1e2f;
+  --background-darker: #1b1b2d;
+  --text-primary: #ffffff;
+  --text-secondary: #a2a2c3;
+  --border-color: rgba(162, 162, 195, 0.1);
+  --accent-color: #6a5acd;
+  --accent-hover: #5a4dbd;
+  --success-color: #2dd4bf;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+  /* Mobile-specific variables */
+  --mobile-padding: 1rem;
+  --mobile-border-radius: 12px;
 }
 
 /* App container */
@@ -17,7 +24,8 @@
   display: flex;
   min-height: 100vh;
   width: 100%;
-  background-color: var(--background-dark);
+  background: linear-gradient(135deg, #1e1e2f 0%, #1b1b2d 100%);
+  padding: var(--mobile-padding);
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 0.875rem;
 }
@@ -107,19 +115,18 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  touch-action: none; /* Disable all touch actions on overlay */
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  pointer-events: auto;
+  touch-action: none;
 }
 
 .sidebar-overlay.visible {
   opacity: 1;
   visibility: visible;
-  pointer-events: all;
 }
 
 /* Story list section improvements */
@@ -159,11 +166,11 @@
   left: 0;
   right: 0;
   height: 60px;
-  background-color: var(--background-darker);
+  background: rgba(27, 27, 45, 0.95);
+  backdrop-filter: blur(10px);
   z-index: 1003;
   padding: 0 4rem;
   box-shadow: var(--shadow-md);
-  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -199,26 +206,34 @@
   }
 
   .main-content {
-    padding: 1rem;
-    padding-top: calc(60px + 1rem);
-    padding-right: 1rem;
+    padding: 0.75rem;
+    padding-top: calc(60px + 0.75rem);
+    padding-right: 0.75rem;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .mobile-app-header {
-    padding: 0 3.5rem;
+    padding: 0 1.5rem;
+    height: 50px;
   }
 
   .mobile-app-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .main-content {
+    padding: 0.5rem;
+    padding-top: calc(50px + 0.5rem);
   }
 }
 
 .app-title {
   color: var(--text-primary);
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 1rem;
+  font-weight: 500;
   margin: 0;
   text-align: center;
   letter-spacing: -0.025em;
@@ -307,7 +322,8 @@
   max-width: 1200px;
   margin: 0 auto 1.5rem;
   padding: 1.5rem;
-  background-color: var(--background-darker);
+  background: rgba(27, 27, 45, 0.9);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
   box-shadow: var(--shadow-md);
 }
@@ -334,7 +350,8 @@
   max-width: 1200px;
   margin: 1.5rem auto;
   padding: 1rem;
-  background-color: var(--background-darker);
+  background: rgba(27, 27, 45, 0.9);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
   box-shadow: var(--shadow-md);
   display: flex;
@@ -413,7 +430,8 @@
   max-width: 1200px;
   margin: 1.5rem auto;
   padding: 1.5rem;
-  background-color: var(--background-darker);
+  background: rgba(27, 27, 45, 0.9);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
   box-shadow: var(--shadow-md);
   display: flex;
@@ -1370,4 +1388,27 @@
     width: 8px;
     height: 8px;
   }
+}
+
+.story-counter {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--accent-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  z-index: 1004;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.story-counter:hover {
+  background-color: var(--accent-hover);
 }

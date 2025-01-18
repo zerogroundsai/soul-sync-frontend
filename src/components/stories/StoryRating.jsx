@@ -1,155 +1,164 @@
 import { useState, useEffect } from "react";
-import { Button, Text, Title, Slider } from "@mantine/core";
+import { Button, Text, Title, Slider, Box, Stack } from "@mantine/core";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "@mantine/hooks";
 
-// Sentiment definitions with descriptions
+// Sentiment definitions with enhanced descriptions and mobile-friendly layout
 const SENTIMENTS = [
   {
     name: "joy",
     positive: true,
-    description: "A feeling of happiness and delight.",
+    description: "Feelings of happiness, delight, and contentment",
+    icon: "😊",
   },
   {
     name: "trust",
     positive: true,
-    description: "Confidence in the honesty or integrity of someone.",
+    description: "Faith in others and feeling of security",
+    icon: "🤝",
   },
   {
     name: "fear",
     positive: false,
-    description: "An unpleasant emotion caused by the threat of danger.",
+    description: "Sense of anxiety or apprehension",
+    icon: "😨",
   },
   {
     name: "surprise",
     positive: true,
-    description: "A feeling of wonder and amazement.",
+    description: "Wonder and amazement",
   },
   {
     name: "sadness",
     positive: false,
-    description: "A feeling of deep sorrow or unhappiness.",
+    description: "Deep sorrow or unhappiness",
   },
   {
     name: "disgust",
     positive: false,
-    description: "A strong sense of aversion or repulsion.",
+    description: "Strong sense of aversion",
   },
   {
     name: "anger",
     positive: false,
-    description: "A feeling of strong displeasure or hostility.",
+    description: "Strong displeasure or hostility",
   },
   {
     name: "anticipation",
     positive: true,
-    description: "Expecting or looking forward to something.",
+    description: "Expecting or looking forward",
   },
   {
     name: "love",
     positive: true,
-    description: "A deep affection or care for someone or something.",
+    description: "Deep affection or care",
   },
   {
     name: "lust",
     positive: true,
-    description: "A strong desire or physical attraction.",
+    description: "Strong desire or attraction",
   },
   {
     name: "optimism",
     positive: true,
-    description: "A positive outlook on the future.",
+    description: "Positive outlook on the future",
   },
   {
     name: "gratitude",
     positive: true,
-    description: "A feeling of thankfulness and appreciation.",
+    description: "Thankfulness and appreciation",
   },
   {
     name: "serenity",
     positive: true,
-    description: "A state of calmness and peacefulness.",
+    description: "Calmness and peacefulness",
   },
   {
     name: "acceptance",
     positive: true,
-    description: "A willingness to embrace or tolerate something.",
+    description: "Embracing or tolerating something",
   },
   {
     name: "apprehension",
     positive: false,
-    description: "A feeling of anxiety or unease about the future.",
+    description: "Anxiety or unease about the future",
   },
   {
     name: "suspense",
     positive: true,
-    description: "A state of uncertainty or excitement as events unfold.",
+    description: "Uncertainty or excitement as events unfold",
   },
   {
     name: "nostalgia",
     positive: false,
-    description: "A sentimental longing for the past.",
+    description: "Sentimental longing for the past",
   },
   {
     name: "guilt",
     positive: false,
-    description: "A feeling of responsibility for wrongdoing.",
+    description: "Awareness of guilt or failure",
   },
   {
     name: "shame",
     positive: false,
-    description: "A painful emotion caused by awareness of guilt or failure.",
+    description: "Painful emotion from guilt or failure",
   },
   {
     name: "pride",
     positive: true,
-    description: "A feeling of satisfaction or self-respect.",
+    description: "Self-respect and satisfaction",
   },
   {
     name: "confidence",
     positive: true,
-    description: "A sense of self-assurance and trust in one's abilities.",
+    description: "Trust in one's abilities",
   },
   {
     name: "compassion",
     positive: true,
-    description: "A feeling of empathy and kindness toward others.",
+    description: "Empathy and kindness",
   },
   {
     name: "envy",
     positive: false,
-    description:
-      "A feeling of discontentment caused by someone else's success.",
+    description: "Discontentment from someone's success",
   },
   {
     name: "jealousy",
     positive: false,
-    description: "A feeling of suspicion and rivalry.",
+    description: "Suspicion and rivalry",
   },
   {
     name: "hope",
     positive: true,
-    description: "A desire for a positive outcome in the future.",
+    description: "Desire for a positive outcome",
   },
   {
     name: "remorse",
     positive: false,
-    description: "A feeling of regret or sorrow for one's actions.",
+    description: "Regret or sorrow for one's actions",
   },
   {
     name: "frustration",
     positive: false,
-    description: "A feeling of annoyance or dissatisfaction.",
+    description: "Annoyance or dissatisfaction",
   },
   {
     name: "contempt",
     positive: false,
-    description: "A lack of respect or disdain for someone or something.",
+    description: "Lack of respect or disdain",
   },
   {
     name: "relief",
     positive: true,
-    description: "A feeling of relaxation after a stressful situation.",
+    description: "Relaxation after a stressful situation",
+  },
+  {
+    name: "excited",
+    positive: true,
+    description: "Enthusiastic and energetic",
+    emoji: "🤩",
   },
 ];
 
@@ -157,51 +166,47 @@ const TONES = [
   {
     name: "neutral",
     positive: true,
-    description: "Balanced and unbiased, without showing strong emotions.",
+    description: "Balanced and unbiased",
   },
   {
     name: "sarcastic",
     positive: true,
-    description:
-      "Playfully mocking or ironic, often using humor to make a point.",
+    description: "Playfully mocking or ironic",
   },
   {
     name: "empathetic",
     positive: true,
-    description: "Showing understanding and sharing another's feelings.",
+    description: "Showing understanding and sharing feelings",
   },
   {
     name: "frustrated",
     positive: false,
-    description:
-      "Expressing annoyance or dissatisfaction due to obstacles or setbacks.",
+    description: "Expressing annoyance or dissatisfaction",
   },
   {
     name: "humorous",
     positive: true,
-    description: "Lighthearted and funny, aiming to entertain or amuse.",
+    description: "Lighthearted and funny",
   },
   {
     name: "calm",
     positive: true,
-    description: "Composed and relaxed, free from stress or excitement.",
+    description: "Composed and relaxed",
   },
   {
     name: "authoritative",
     positive: true,
-    description: "Commanding and confident, showing leadership or expertise.",
+    description: "Commanding and confident",
   },
   {
     name: "sympathetic",
     positive: true,
-    description:
-      "Showing care and concern for someone's difficulties or feelings.",
+    description: "Showing care and concern",
   },
   {
     name: "excited",
     positive: true,
-    description:
-      "Full of enthusiasm and energy, often about something positive or anticipated.",
+    description: "Full of enthusiasm and energy",
   },
 ];
 
@@ -209,169 +214,171 @@ const FACIAL_EXPRESSIONS = [
   {
     id: 1,
     emoji: "😀",
-    description: "Smiling face with happiness.",
+    description: "Happy",
     positive: true,
+    emotion: "happy",
   },
   {
     id: 2,
     emoji: "🤗",
-    description: "Hugging face showing trust or gratitude.",
+    description: "Grateful",
     positive: true,
+    emotion: "trust",
   },
   {
     id: 3,
     emoji: "😨",
-    description: "Fearful face showing worry or terror.",
+    description: "Fearful face showing worry or terror",
     positive: false,
   },
   {
     id: 4,
     emoji: "😲",
-    description: "Amazed face with wide eyes of surprise.",
+    description: "Amazed face with wide eyes of surprise",
     positive: true,
   },
   {
     id: 5,
     emoji: "😢",
-    description: "Crying face showing sadness or sorrow.",
+    description: "Crying face showing sadness or sorrow",
     positive: false,
   },
   {
     id: 6,
     emoji: "🤢",
-    description: "Face feeling nauseous or disgusted.",
+    description: "Face feeling nauseous or disgusted",
     positive: false,
   },
   {
     id: 7,
     emoji: "😠",
-    description: "Angry face showing displeasure.",
+    description: "Angry face showing displeasure",
     positive: false,
   },
   {
     id: 8,
     emoji: "🤔",
-    description: "Thinking face showing anticipation or doubt.",
+    description: "Thinking face showing anticipation or doubt",
     positive: false,
   },
   {
     id: 9,
     emoji: "😏",
-    description: "Smirking face showing lust or desire.",
+    description: "Smirking face showing lust or desire",
     positive: true,
   },
   {
     id: 10,
     emoji: "😌",
-    description: "Relaxed face for optimism.",
+    description: "Relaxed face for optimism",
     positive: true,
   },
   {
     id: 11,
     emoji: "😃",
-    description: "Showing gratitude.",
+    description: "Showing gratitude",
     positive: true,
   },
   {
     id: 12,
     emoji: "😇",
-    description: "Angel face showing serenity.",
+    description: "Angel face showing serenity",
     positive: true,
   },
   {
     id: 13,
-    emoji: "🤗",
-    description: "Showing acceptance.",
+    emoji: "��",
+    description: "Showing acceptance",
     positive: true,
   },
   {
     id: 14,
-    emoji: "😟",
-    description: "Worried face showing apprehension.",
+    emoji: "��",
+    description: "Worried face showing apprehension",
     positive: false,
   },
   {
     id: 15,
     emoji: "😬",
-    description: "Grimacing face showing suspense.",
+    description: "Grimacing face showing suspense",
     positive: false,
   },
   {
     id: 16,
     emoji: "🥹",
-    description: "Tearful face showing nostalgia.",
+    description: "Tearful face showing nostalgia",
     positive: true,
   },
   {
     id: 17,
     emoji: "😔",
-    description: "Sad face showing guilt.",
+    description: "Sad face showing guilt",
     positive: false,
   },
   {
     id: 18,
-    emoji: "😳",
-    description: "Flushed face showing shame.",
+    emoji: "��",
+    description: "Flushed face showing shame",
     positive: false,
   },
   {
     id: 19,
-    emoji: "😌",
-    description: "Content face showing pride.",
+    emoji: "��",
+    description: "Content face showing pride",
     positive: true,
   },
   {
     id: 20,
-    emoji: "😎",
-    description: "Cool face with sunglasses for confidence.",
+    emoji: "��",
+    description: "Cool face with sunglasses for confidence",
     positive: true,
   },
   {
     id: 21,
     emoji: "🥰",
-    description: "Smiling face with hearts for love and compassion.",
+    description: "Smiling face with hearts for love and compassion",
     positive: true,
   },
   {
     id: 22,
-    emoji: "😒",
-    description: "Unimpressed face showing envy.",
+    emoji: "��",
+    description: "Unimpressed face showing envy",
     positive: false,
   },
   {
     id: 23,
     emoji: "🥴",
-    description: "Dizzy face showing jealousy.",
+    description: "Dizzy face showing jealousy",
     positive: false,
   },
   {
     id: 24,
-    emoji: "😊",
-    description: "Smiling face for hope.",
+    emoji: "��",
+    description: "Smiling face for hope",
     positive: true,
   },
   {
     id: 25,
     emoji: "😥",
-    description: "Crying face showing remorse.",
+    description: "Crying face showing remorse",
     positive: false,
   },
   {
     id: 26,
     emoji: "😤",
-    description: "Face exhaling showing frustration.",
+    description: "Face exhaling showing frustration",
     positive: false,
   },
   {
     id: 27,
     emoji: "😑",
-    description: "Neutral face showing contempt.",
+    description: "Neutral face showing contempt",
     positive: false,
   },
   {
     id: 28,
     emoji: "😮",
-    description: "Face exhaling showing relief.",
+    description: "Face exhaling showing relief",
     positive: true,
   },
 ];
@@ -390,9 +397,9 @@ export function StoryRating() {
   const [activeStoryId, setActiveStoryId] = useState(null);
   const { token } = useAuth();
   const navigate = useNavigate();
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState("sentiments");
   const [isConfidenceCollapsed, setIsConfidenceCollapsed] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     if (!token) {
@@ -442,44 +449,6 @@ export function StoryRating() {
     }
   };
 
-  const fetchStoryById = async (storyId) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/stories/${storyId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch story");
-      }
-
-      const data = await response.json();
-      setCurrentStory(data);
-      setActiveStoryId(data._id);
-      setCurrentStep("sentiments");
-      setRatings({
-        sentiments: {},
-        tones: {},
-        facialExpressions: {},
-        overallConfidence: 0.5,
-      });
-    } catch (error) {
-      setError(error.message);
-      if (error.response?.status === 401) {
-        navigate("/login");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const fetchNextStory = async () => {
     try {
       setLoading(true);
@@ -516,11 +485,6 @@ export function StoryRating() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleStoryClick = (storyId, e) => {
-    if (e) e.stopPropagation();
-    setActiveStoryId(storyId);
   };
 
   const handleSubmit = async () => {
@@ -609,83 +573,22 @@ export function StoryRating() {
     }
   };
 
-  const renderStoryList = () => {
-    return (
-      <div className="story-list">
-        {stories.map((story) => (
-          <div
-            key={story._id}
-            className={`story-item ${
-              activeStoryId === story._id ? "active" : ""
-            } ${story.isCompleted ? "completed" : ""}`}
-            onClick={(e) => handleStoryClick(story._id, e)}
-          >
-            <div className="story-item-content">
-              <span>{story.name}</span>
-              {story.isCompleted && <span className="checkmark">✓</span>}
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const toggleSidebar = (e) => {
-    if (e) e.stopPropagation();
-    setIsSidebarVisible(!isSidebarVisible);
-  };
-
-  const handleSidebarInteraction = (e) => {
-    if (e) e.stopPropagation();
-  };
-
-  const renderSidebar = () => (
-    <>
-      <div className={`sidebar-overlay ${isSidebarVisible ? "visible" : ""}`} />
-      <div
-        className={`sidebar ${isSidebarVisible ? "visible" : ""}`}
-        onClick={handleSidebarInteraction}
-        onTouchStart={handleSidebarInteraction}
-        onTouchMove={handleSidebarInteraction}
-        onTouchEnd={handleSidebarInteraction}
-      >
-        <h1 className="app-title">Soul Sync</h1>
-        <p className="app-subtitle">Sentiment Rating Tool</p>
-        <div className="story-list-section">{renderStoryList()}</div>
-      </div>
-    </>
-  );
+  const completedStoriesCount = stories.filter(
+    (story) => story.isCompleted
+  ).length;
+  const totalStoriesCount = stories.length;
 
   if (loading) {
     return (
       <div className="app-container">
         <div className="mobile-app-header">
           <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
+          <div className="story-counter">
+            {completedStoriesCount}/{totalStoriesCount}
+          </div>
         </div>
 
-        <button
-          className="hamburger-button"
-          onClick={toggleSidebar}
-          aria-label={isSidebarVisible ? "Close menu" : "Open menu"}
-        >
-          <div
-            className={`hamburger-line ${isSidebarVisible ? "open" : ""}`}
-          ></div>
-          <div
-            className={`hamburger-line ${isSidebarVisible ? "open" : ""}`}
-          ></div>
-          <div
-            className={`hamburger-line ${isSidebarVisible ? "open" : ""}`}
-          ></div>
-        </button>
-
-        {renderSidebar()}
-
-        <div
-          className={`main-content ${
-            isSidebarVisible ? "sidebar-visible" : ""
-          }`}
-        >
+        <div className={`main-content`}>
           <Text>Loading story...</Text>
         </div>
       </div>
@@ -697,31 +600,12 @@ export function StoryRating() {
       <div className="app-container">
         <div className="mobile-app-header">
           <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
+          <div className="story-counter">
+            {completedStoriesCount}/{totalStoriesCount}
+          </div>
         </div>
 
-        <button
-          className="hamburger-button"
-          onClick={toggleSidebar}
-          aria-label={isSidebarVisible ? "Close menu" : "Open menu"}
-        >
-          <div
-            className={`hamburger-line ${isSidebarVisible ? "open" : ""}`}
-          ></div>
-          <div
-            className={`hamburger-line ${isSidebarVisible ? "open" : ""}`}
-          ></div>
-          <div
-            className={`hamburger-line ${isSidebarVisible ? "open" : ""}`}
-          ></div>
-        </button>
-
-        {renderSidebar()}
-
-        <div
-          className={`main-content ${
-            isSidebarVisible ? "sidebar-visible" : ""
-          }`}
-        >
+        <div className={`main-content`}>
           <Text>Error: {error}</Text>
         </div>
       </div>
@@ -732,29 +616,12 @@ export function StoryRating() {
     <div className="app-container">
       <div className="mobile-app-header">
         <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
+        <div className="story-counter">
+          {completedStoriesCount}/{totalStoriesCount}
+        </div>
       </div>
 
-      <button
-        className="hamburger-button"
-        onClick={toggleSidebar}
-        aria-label={isSidebarVisible ? "Close menu" : "Open menu"}
-      >
-        <div
-          className={`hamburger-line ${isSidebarVisible ? "open" : ""}`}
-        ></div>
-        <div
-          className={`hamburger-line ${isSidebarVisible ? "open" : ""}`}
-        ></div>
-        <div
-          className={`hamburger-line ${isSidebarVisible ? "open" : ""}`}
-        ></div>
-      </button>
-
-      {renderSidebar()}
-
-      <div
-        className={`main-content ${isSidebarVisible ? "sidebar-visible" : ""}`}
-      >
+      <div className={`main-content`}>
         <div className="story-container">
           <Title order={3} className="sentiment-title">
             User Story
