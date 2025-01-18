@@ -414,20 +414,26 @@
   }
 
   .sentiment-description {
-    font-size: 0.75rem;
-    line-height: 1.4;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    opacity: 0.95;
   }
 
   .sentiment-name {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
   }
 
   .sentiment-value {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
   }
 
   .confidence-header .cl-value-description {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
+    opacity: 0.95;
   }
 
   .story-text {
@@ -584,15 +590,16 @@
 /* Additional improvements for very small screens */
 @media (max-width: 480px) {
   .sentiment-description {
-    font-size: 0.75rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
   }
 
   .sentiment-name {
-    font-size: 0.8rem;
+    font-size: 0.87rem;
   }
 
   .sentiment-value {
-    font-size: 0.75rem;
+    font-size: 0.82rem;
   }
 
   .story-text {
