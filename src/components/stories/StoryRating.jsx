@@ -612,14 +612,23 @@ export function StoryRating() {
 
   const renderStoryList = () => {
     return (
-      <div className="story-list">
+      <div
+        className="story-list"
+        onTouchStart={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
+        onTouchEnd={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
+      >
         {stories.map((story) => (
           <div
             key={story._id}
             className={`story-item ${
               activeStoryId === story._id ? "active" : ""
             } ${story.isCompleted ? "completed" : ""}`}
-            onClick={() => handleStoryClick(story._id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleStoryClick(story._id);
+            }}
           >
             <div className="story-item-content">
               <span>{story.name}</span>
@@ -637,6 +646,11 @@ export function StoryRating() {
 
   const handleOverlayClick = (e) => {
     // Prevent overlay clicks from dismissing the menu
+    e.stopPropagation();
+  };
+
+  const handleSidebarInteraction = (e) => {
+    // Prevent any click or touch events from propagating
     e.stopPropagation();
   };
 
@@ -670,11 +684,22 @@ export function StoryRating() {
 
         <div
           className={`sidebar ${isSidebarVisible ? "visible" : ""}`}
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleSidebarInteraction}
+          onTouchStart={handleSidebarInteraction}
+          onTouchMove={handleSidebarInteraction}
+          onTouchEnd={handleSidebarInteraction}
         >
           <h1 className="app-title">Soul Sync</h1>
           <p className="app-subtitle">Sentiment Rating Tool</p>
-          <div className="story-list-section">{renderStoryList()}</div>
+          <div
+            className="story-list-section"
+            onTouchStart={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            onTouchEnd={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {renderStoryList()}
+          </div>
         </div>
 
         <div
@@ -718,11 +743,22 @@ export function StoryRating() {
 
         <div
           className={`sidebar ${isSidebarVisible ? "visible" : ""}`}
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleSidebarInteraction}
+          onTouchStart={handleSidebarInteraction}
+          onTouchMove={handleSidebarInteraction}
+          onTouchEnd={handleSidebarInteraction}
         >
           <h1 className="app-title">Soul Sync</h1>
           <p className="app-subtitle">Sentiment Rating Tool</p>
-          <div className="story-list-section">{renderStoryList()}</div>
+          <div
+            className="story-list-section"
+            onTouchStart={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            onTouchEnd={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {renderStoryList()}
+          </div>
         </div>
 
         <div
@@ -765,11 +801,22 @@ export function StoryRating() {
 
       <div
         className={`sidebar ${isSidebarVisible ? "visible" : ""}`}
-        onClick={(e) => e.stopPropagation()}
+        onClick={handleSidebarInteraction}
+        onTouchStart={handleSidebarInteraction}
+        onTouchMove={handleSidebarInteraction}
+        onTouchEnd={handleSidebarInteraction}
       >
         <h1 className="app-title">Soul Sync</h1>
         <p className="app-subtitle">Sentiment Rating Tool</p>
-        <div className="story-list-section">{renderStoryList()}</div>
+        <div
+          className="story-list-section"
+          onTouchStart={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+          onTouchEnd={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {renderStoryList()}
+        </div>
       </div>
 
       <div
