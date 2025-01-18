@@ -97,7 +97,7 @@
 
 .app-title {
   color: var(--text-primary);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 800;
   margin: 0;
   text-align: center;
@@ -107,7 +107,7 @@
 
 .app-subtitle {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-align: center;
   margin: 0.5rem 0 1.5rem;
   font-weight: 500;
@@ -193,8 +193,8 @@
 }
 
 .story-text {
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: 0.9rem;
+  line-height: 1.7;
   color: var(--text-primary);
   white-space: pre-wrap;
   margin: 0;
@@ -245,7 +245,7 @@
 .confidence-header .cl-value-description {
   margin-bottom: 0;
   color: var(--text-secondary);
-  font-size: 0.875rem;
+  font-size: 0.8rem;
 }
 
 .confidence-slider {
@@ -454,20 +454,20 @@
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: 0.025em;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
 }
 
 .sentiment-value {
-  color: var(--accent-color);
+  color: var(--text-secondary);
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
 }
 
 .sentiment-description {
   color: var(--text-secondary);
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  line-height: 1.4;
 }
 
 /* User section */
@@ -809,8 +809,9 @@
 
 .welcome-title {
   color: var(--text-primary);
-  font-size: 1.75rem;
-  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
   text-align: center;
   letter-spacing: -0.025em;
 }
@@ -821,9 +822,9 @@
 
 .section-title {
   color: var(--text-primary);
-  font-size: 1.125rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .welcome-list {
@@ -833,10 +834,12 @@
 }
 
 .welcome-list li {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   color: var(--text-secondary);
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 1.5rem;
 }
 
 /* Mobile Responsive Styles */

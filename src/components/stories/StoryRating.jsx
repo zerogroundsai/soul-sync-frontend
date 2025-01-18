@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Text, Title, Slider, Avatar } from "@mantine/core";
+import { Button, Text, Title, Slider } from "@mantine/core";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -388,7 +388,7 @@ export function StoryRating() {
   });
   const [stories, setStories] = useState([]);
   const [activeStoryId, setActiveStoryId] = useState(null);
-  const { user, token, logout } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState("sentiments");
@@ -597,11 +597,6 @@ export function StoryRating() {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
-
   const handleNext = () => {
     if (currentStep === "sentiments") {
       setCurrentStep("tones");
@@ -633,41 +628,6 @@ export function StoryRating() {
     );
   };
 
-  const renderUserSection = () => {
-    const capitalizedName = user?.name
-      ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
-      : "";
-
-    return (
-      <div className="user-section">
-        <div className="user-info">
-          <Avatar
-            radius="xl"
-            size="md"
-            color="violet"
-            styles={{
-              root: {
-                backgroundColor: "var(--accent-color)",
-                border: "2px solid var(--border-color)",
-              },
-            }}
-          />
-          <Text className="welcome-text">
-            Welcome, <span className="username">{capitalizedName}</span>
-          </Text>
-        </div>
-        <Button
-          className="button-logout"
-          onClick={handleLogout}
-          fullWidth
-          mt="md"
-        >
-          Logout
-        </Button>
-      </div>
-    );
-  };
-
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
@@ -695,7 +655,6 @@ export function StoryRating() {
           <h1 className="app-title">Soul Sync</h1>
           <p className="app-subtitle">Sentiment Rating Tool</p>
           <div className="story-list-section">{renderStoryList()}</div>
-          {renderUserSection()}
         </div>
 
         <div
@@ -732,7 +691,6 @@ export function StoryRating() {
           <h1 className="app-title">Soul Sync</h1>
           <p className="app-subtitle">Sentiment Rating Tool</p>
           <div className="story-list-section">{renderStoryList()}</div>
-          {renderUserSection()}
         </div>
 
         <div
@@ -768,7 +726,6 @@ export function StoryRating() {
         <h1 className="app-title">Soul Sync</h1>
         <p className="app-subtitle">Sentiment Rating Tool</p>
         <div className="story-list-section">{renderStoryList()}</div>
-        {renderUserSection()}
       </div>
 
       <div
