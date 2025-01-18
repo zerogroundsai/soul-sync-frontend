@@ -414,20 +414,20 @@
   }
 
   .sentiment-description {
-    font-size: 0.6rem;
-    line-height: 1.2;
+    font-size: 0.75rem;
+    line-height: 1.4;
   }
 
   .sentiment-name {
-    font-size: 0.65rem;
+    font-size: 0.8rem;
   }
 
   .sentiment-value {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
   }
 
   .confidence-header .cl-value-description {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
   }
 
   .story-text {
@@ -454,26 +454,158 @@
   .sentiment-header {
     margin-bottom: 0.5rem;
   }
-}
 
-/* Even smaller text for very small mobile screens */
-@media (max-width: 480px) {
-  .sentiment-description {
-    font-size: 0.55rem;
-    line-height: 1.15;
-  }
-
-  .sentiment-name {
-    font-size: 0.6rem;
-  }
-
-  .sentiment-value {
-    font-size: 0.55rem;
+  /* Story container improvements */
+  .story-container {
+    padding: 1.25rem;
+    margin: 0.75rem auto;
+    border-radius: 12px;
   }
 
   .story-text {
-    font-size: 0.7rem;
-    line-height: 1.4;
+    font-size: 0.85rem; /* Slightly larger for better readability */
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+
+  /* Sentiment section improvements */
+  .sentiment-section {
+    padding: 1.25rem;
+    margin: 0.75rem auto;
+    border-radius: 12px;
+  }
+
+  .sentiment-grid {
+    gap: 0.75rem;
+  }
+
+  .sentiment-item {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: rgba(
+      30,
+      41,
+      59,
+      0.7
+    ); /* Slightly transparent for modern look */
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+  }
+
+  .sentiment-header {
+    margin-bottom: 0.75rem;
+  }
+
+  .sentiment-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .sentiment-value {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .sentiment-description {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    opacity: 0.9;
+  }
+
+  /* Slider improvements */
+  .confidence-slider .mantine-Slider-track {
+    height: 6px;
+  }
+
+  .confidence-slider .mantine-Slider-thumb {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--accent-color);
+  }
+
+  /* Button improvements */
+  .button-next {
+    height: 48px !important; /* Taller button for better touch target */
+    font-size: 0.95rem !important;
+    border-radius: 10px !important;
+    background: linear-gradient(
+      45deg,
+      var(--accent-color),
+      var(--accent-hover)
+    ) !important;
+    box-shadow: 0 2px 10px rgba(139, 92, 246, 0.2) !important;
+  }
+
+  .next-button-container {
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+    position: sticky;
+    bottom: 1rem;
+    z-index: 10;
+  }
+
+  /* Overall confidence section improvements */
+  .confidence-section {
+    padding: 1.25rem;
+    margin: 0.75rem auto;
+    border-radius: 12px;
+    background-color: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(8px);
+  }
+
+  .confidence-header {
+    gap: 0.75rem;
+  }
+
+  .confidence-header .cl-value-description {
+    font-size: 0.8rem;
+    opacity: 0.9;
+  }
+
+  /* Main content improvements */
+  .main-content {
+    padding: 1rem;
+    padding-top: calc(1rem + 48px); /* Account for fixed header */
+  }
+
+  /* Improved spacing and touch targets */
+  .hamburger-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Additional improvements for very small screens */
+@media (max-width: 480px) {
+  .sentiment-description {
+    font-size: 0.75rem;
+  }
+
+  .sentiment-name {
+    font-size: 0.8rem;
+  }
+
+  .sentiment-value {
+    font-size: 0.75rem;
+  }
+
+  .story-text {
+    font-size: 0.8rem;
+  }
+
+  .main-content {
+    padding: 0.75rem;
+    padding-top: calc(0.75rem + 48px);
+  }
+
+  .sentiment-item {
+    padding: 0.875rem;
   }
 }
 
