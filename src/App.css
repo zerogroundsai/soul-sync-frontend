@@ -26,7 +26,7 @@
 .hamburger-button {
   position: fixed;
   top: 8px;
-  left: 16px;
+  right: 16px;
   z-index: 1004;
   width: 44px;
   height: 44px;
@@ -71,26 +71,26 @@
 /* Sidebar/Menu */
 .sidebar {
   position: fixed;
-  left: 0;
+  right: 0;
   top: 0;
   width: 320px;
   height: 100vh;
   background-color: var(--background-darker);
-  border-right: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
   padding: 2rem;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  transform: translateX(-100%);
+  transform: translateX(100%);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1001;
   box-shadow: var(--shadow-md);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-  overscroll-behavior: contain; /* Prevent scroll chain */
-  touch-action: pan-y pinch-zoom; /* Allow only vertical scrolling and pinch zoom */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y pinch-zoom;
 }
 
 .sidebar.visible {
@@ -153,8 +153,66 @@
 
 /* Mobile App Header should be above all */
 .mobile-app-header {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: var(--background-darker);
   z-index: 1003;
-  isolation: isolate;
+  padding: 0 4rem;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-app-title {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .mobile-app-header {
+    display: block;
+  }
+
+  .mobile-app-title {
+    color: var(--text-primary);
+    -webkit-text-fill-color: var(
+      --text-primary
+    ); /* Override any existing gradient */
+  }
+
+  .main-content {
+    padding-top: calc(60px + 1rem) !important;
+  }
+
+  .hamburger-button {
+    top: 8px;
+    right: 16px;
+  }
+
+  .main-content {
+    padding: 1rem;
+    padding-top: calc(60px + 1rem);
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-app-header {
+    padding: 0 3.5rem;
+  }
+
+  .mobile-app-title {
+    font-size: 1.1rem;
+  }
 }
 
 .app-title {
@@ -549,25 +607,25 @@
   }
 
   .sidebar {
-    width: 100%;
-    height: 100vh;
+    width: 85%;
+    max-width: 300px;
   }
 
   .main-content {
-    margin-left: 0 !important;
+    margin-right: 0 !important;
     padding: 1.5rem;
     padding-top: calc(1.5rem + 44px);
     width: 100% !important;
   }
 
   .main-content.sidebar-visible {
-    margin-left: 0;
+    margin-right: 0;
     width: 100%;
   }
 
   .hamburger-button {
     top: 8px;
-    left: 16px;
+    right: 16px;
     background-color: transparent;
   }
 
@@ -1312,48 +1370,5 @@
     right: 0.25rem;
     width: 8px;
     height: 8px;
-  }
-}
-
-/* Mobile App Header */
-.mobile-app-header {
-  display: none; /* Hidden by default on desktop */
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background-color: var(--background-darker);
-  z-index: 1003;
-  padding: 0 1rem;
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.mobile-app-title {
-  color: var(--text-primary);
-  font-size: 1.25rem;
-  font-weight: 800;
-  text-align: center;
-  line-height: 60px;
-  letter-spacing: -0.025em;
-  margin: 0;
-  background: linear-gradient(45deg, var(--accent-color), var(--accent-hover));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@media (max-width: 768px) {
-  .mobile-app-header {
-    display: block;
-  }
-
-  .main-content {
-    padding-top: calc(60px + 1rem) !important; /* Account for fixed header */
-  }
-
-  .hamburger-button {
-    top: 8px; /* Adjust hamburger position to align with header */
   }
 }
