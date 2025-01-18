@@ -645,6 +645,9 @@ export function StoryRating() {
       <div
         className={`sidebar ${isSidebarVisible ? "visible" : ""}`}
         onClick={handleSidebarInteraction}
+        onTouchStart={handleSidebarInteraction}
+        onTouchMove={handleSidebarInteraction}
+        onTouchEnd={handleSidebarInteraction}
       >
         <h1 className="app-title">Soul Sync</h1>
         <p className="app-subtitle">Sentiment Rating Tool</p>
