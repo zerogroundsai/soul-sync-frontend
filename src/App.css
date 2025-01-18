@@ -252,8 +252,8 @@
 .confidence-slider {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 0;
+  gap: 1.25rem;
+  padding: 1rem 0.5rem;
   width: 100%;
 }
 
@@ -282,12 +282,12 @@
 }
 
 .confidence-value {
-  min-width: 3rem;
+  min-width: 4rem;
   text-align: right;
   color: var(--text-primary);
   font-weight: 500;
   font-size: 0.8rem;
-  padding-left: 0.5rem;
+  padding-left: 0.75rem;
 }
 
 /* Next Button Container */
@@ -325,7 +325,52 @@
   }
 
   .confidence-slider {
-    padding: 0.25rem 0;
+    padding: 0.75rem 0.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .confidence-header {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .sentiment-name {
+    padding-right: 1rem;
+  }
+
+  .sentiment-value {
+    padding-left: 1rem;
+  }
+
+  .confidence-slider .mantine-Slider-root {
+    margin: 0 0.5rem;
+    flex: 1;
+  }
+
+  .confidence-slider .mantine-Slider-track {
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .confidence-slider .mantine-Slider-thumb {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .sentiment-grid {
+    gap: 1rem;
+  }
+
+  .sentiment-item {
+    margin-bottom: 0.75rem;
+    padding: 1.25rem;
+  }
+
+  .sentiment-description {
+    margin-top: 0.5rem;
+    padding: 0 0.25rem;
   }
 }
 
@@ -454,11 +499,11 @@
   }
 
   .sentiment-item {
-    padding: 0.6rem;
+    padding: 1.25rem;
   }
 
   .sentiment-header {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   /* Story container improvements */
@@ -635,7 +680,7 @@
 }
 
 .sentiment-item {
-  padding: 0.75rem;
+  padding: 1.25rem;
   background-color: var(--background-dark);
   border-radius: 12px;
   border: 1px solid var(--border-color);
@@ -650,7 +695,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .sentiment-name {
