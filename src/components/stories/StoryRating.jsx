@@ -579,41 +579,29 @@ export function StoryRating() {
       setLoading(true);
       setError(null);
 
-      // Call the skip endpoint with current story ID
+      // Get the next story
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/stories/${currentStory._id}/skip`,
+        `${import.meta.env.VITE_API_URL}/api/stories/next`,
         {
-          method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
             Accept: "application/json",
           },
         }
       );
 
-      console.log("Skip API Response:", response);
+      console.log("Next story API Response:", response);
       if (!response.ok) {
-        throw new Error("Failed to skip story");
-      }
-
-      // Get the next story after skipping
-      const nextStoryResponse = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/stories/random`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        }
-      );
-
-      if (!nextStoryResponse.ok) {
         throw new Error("Failed to fetch next story");
       }
 
-      const data = await nextStoryResponse.json();
-      console.log("Next random story data:", data);
+      const data = await response.json();
+      console.log("Next story data:", data);
+
+      // Make sure we're not getting the same story
+      if (data._id === currentStory._id) {
+        throw new Error("Received the same story");
+      }
 
       // Update the current story and reset ratings
       setCurrentStory(data);
