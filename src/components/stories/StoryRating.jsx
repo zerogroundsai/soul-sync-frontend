@@ -213,172 +213,220 @@ const FACIAL_EXPRESSIONS = [
   {
     id: 1,
     emoji: "😀",
+    name: "Happy face",
     description: "Happy",
     positive: true,
     emotion: "happy",
+    imagePath: "/emojis/happy.png",
   },
   {
     id: 2,
     emoji: "🤗",
+    name: "Grateful face",
     description: "Grateful",
     positive: true,
     emotion: "trust",
+    imagePath: "/emojis/grateful.png",
   },
   {
     id: 3,
     emoji: "😨",
+    name: "Fearful face",
     description: "Fearful face showing worry or terror",
     positive: false,
+    imagePath: "/emojis/fearful.png",
   },
   {
     id: 4,
     emoji: "😲",
+    name: "Amazed face",
     description: "Amazed face with wide eyes of surprise",
     positive: true,
+    imagePath: "/emojis/amazed.png",
   },
   {
     id: 5,
     emoji: "😢",
+    name: "Crying face",
     description: "Crying face showing sadness or sorrow",
     positive: false,
+    imagePath: "/emojis/crying.png",
   },
   {
     id: 6,
     emoji: "🤢",
+    name: "Nauseous face",
     description: "Face feeling nauseous or disgusted",
     positive: false,
+    imagePath: "/emojis/nauseous.png",
   },
   {
     id: 7,
     emoji: "😠",
+    name: "Angry face",
     description: "Angry face showing displeasure",
     positive: false,
+    imagePath: "/emojis/angry.png",
   },
   {
     id: 8,
     emoji: "🤔",
+    name: "Thinking face",
     description: "Thinking face showing anticipation or doubt",
     positive: false,
+    imagePath: "/emojis/thinking.png",
   },
   {
     id: 9,
     emoji: "😏",
+    name: "Smirking face",
     description: "Smirking face showing lust or desire",
     positive: true,
+    imagePath: "/emojis/smirking.png",
   },
   {
     id: 10,
     emoji: "😌",
+    name: "Relaxed face",
     description: "Relaxed face for optimism",
     positive: true,
+    imagePath: "/emojis/relaxed.png",
   },
   {
     id: 11,
-    emoji: "😃",
-    description: "Showing gratitude",
+    emoji: "😇",
+    name: "Angel face",
+    description: "Angel face showing serenity",
     positive: true,
+    imagePath: "/emojis/angel.png",
   },
   {
     id: 12,
-    emoji: "😇",
-    description: "Angel face showing serenity",
+    emoji: "😊",
+    name: "Accepting face",
+    description: "Showing acceptance",
     positive: true,
+    imagePath: "/emojis/accepting.png",
   },
   {
     id: 13,
-    emoji: "��",
-    description: "Showing acceptance",
-    positive: true,
+    emoji: "😟",
+    name: "Worried face",
+    description: "Worried face showing apprehension",
+    positive: false,
+    imagePath: "/emojis/worried.png",
   },
   {
     id: 14,
-    emoji: "��",
-    description: "Worried face showing apprehension",
+    emoji: "😬",
+    name: "Grimacing face",
+    description: "Grimacing face showing suspense",
     positive: false,
+    imagePath: "/emojis/grimacing.png",
   },
   {
     id: 15,
-    emoji: "😬",
-    description: "Grimacing face showing suspense",
-    positive: false,
+    emoji: "🥹",
+    name: "Tearful face",
+    description: "Tearful face showing nostalgia",
+    positive: true,
+    imagePath: "/emojis/tearful.png",
   },
   {
     id: 16,
-    emoji: "🥹",
-    description: "Tearful face showing nostalgia",
-    positive: true,
+    emoji: "😔",
+    name: "Sad face",
+    description: "Sad face showing guilt",
+    positive: false,
+    imagePath: "/emojis/sad.png",
   },
   {
     id: 17,
-    emoji: "😔",
-    description: "Sad face showing guilt",
+    emoji: "😳",
+    name: "Flushed face",
+    description: "Flushed face showing shame",
     positive: false,
+    imagePath: "/emojis/flushed.png",
   },
   {
     id: 18,
-    emoji: "��",
-    description: "Flushed face showing shame",
-    positive: false,
+    emoji: "😊",
+    name: "Content face",
+    description: "Content face showing pride",
+    positive: true,
+    imagePath: "/emojis/content.png",
   },
   {
     id: 19,
-    emoji: "��",
-    description: "Content face showing pride",
+    emoji: "😎",
+    name: "Cool face",
+    description: "Cool face with sunglasses for confidence",
     positive: true,
+    imagePath: "/emojis/cool.png",
   },
   {
     id: 20,
-    emoji: "��",
-    description: "Cool face with sunglasses for confidence",
+    emoji: "🥰",
+    name: "Loving face",
+    description: "Smiling face with hearts for love and compassion",
     positive: true,
+    imagePath: "/emojis/loving.png",
   },
   {
     id: 21,
-    emoji: "🥰",
-    description: "Smiling face with hearts for love and compassion",
-    positive: true,
+    emoji: "😒",
+    name: "Unimpressed face",
+    description: "Unimpressed face showing envy",
+    positive: false,
+    imagePath: "/emojis/unimpressed.png",
   },
   {
     id: 22,
-    emoji: "��",
-    description: "Unimpressed face showing envy",
+    emoji: "🥴",
+    name: "Dizzy face",
+    description: "Dizzy face showing jealousy",
     positive: false,
+    imagePath: "/emojis/dizzy.png",
   },
   {
     id: 23,
-    emoji: "🥴",
-    description: "Dizzy face showing jealousy",
-    positive: false,
+    emoji: "😄",
+    name: "Hopeful face",
+    description: "Smiling face for hope",
+    positive: true,
+    imagePath: "/emojis/hopeful.png",
   },
   {
     id: 24,
-    emoji: "��",
-    description: "Smiling face for hope",
-    positive: true,
+    emoji: "😥",
+    name: "Remorseful face",
+    description: "Crying face showing remorse",
+    positive: false,
+    imagePath: "/emojis/remorseful.png",
   },
   {
     id: 25,
-    emoji: "😥",
-    description: "Crying face showing remorse",
+    emoji: "😤",
+    name: "Frustrated face",
+    description: "Face exhaling showing frustration",
     positive: false,
+    imagePath: "/emojis/frustrated.png",
   },
   {
     id: 26,
-    emoji: "😤",
-    description: "Face exhaling showing frustration",
+    emoji: "😑",
+    name: "Contemptuous face",
+    description: "Neutral face showing contempt",
     positive: false,
+    imagePath: "/emojis/contemptuous.png",
   },
   {
     id: 27,
-    emoji: "😑",
-    description: "Neutral face showing contempt",
-    positive: false,
-  },
-  {
-    id: 28,
     emoji: "😮",
+    name: "Relieved face",
     description: "Face exhaling showing relief",
     positive: true,
+    imagePath: "/emojis/relieved.png",
   },
 ];
 
@@ -494,8 +542,8 @@ export function StoryRating() {
       }));
 
       const facialExpressionData = FACIAL_EXPRESSIONS.map((expression) => ({
-        name: expression.emoji,
-        value: ratings.facialExpressions[expression.emoji] || 0.5,
+        name: expression.name,
+        value: ratings.facialExpressions[expression.name] || 0.5,
       }));
 
       const requestBody = {
@@ -939,21 +987,28 @@ export function StoryRating() {
               {FACIAL_EXPRESSIONS.map((expression) => (
                 <div key={expression.id} className="sentiment-item">
                   <div className="sentiment-header">
-                    <Text className="sentiment-name">
-                      {expression.emoji} {expression.description}
-                    </Text>
+                    <div className="sentiment-name-container">
+                      <img
+                        src={expression.imagePath}
+                        alt={expression.name}
+                        className="expression-emoji"
+                      />
+                      <Text className="sentiment-name">{expression.name}</Text>
+                    </div>
                     <Text className="sentiment-value">
-                      {(ratings.facialExpressions[expression.emoji] !==
-                      undefined
-                        ? ratings.facialExpressions[expression.emoji]
+                      {(ratings.facialExpressions[expression.name] !== undefined
+                        ? ratings.facialExpressions[expression.name]
                         : 0.5
                       ).toFixed(4)}
                     </Text>
                   </div>
+                  <Text className="sentiment-description">
+                    {expression.description}
+                  </Text>
                   <Slider
                     value={
-                      ratings.facialExpressions[expression.emoji] !== undefined
-                        ? ratings.facialExpressions[expression.emoji]
+                      ratings.facialExpressions[expression.name] !== undefined
+                        ? ratings.facialExpressions[expression.name]
                         : 0.5
                     }
                     onChange={(value) =>
@@ -961,7 +1016,7 @@ export function StoryRating() {
                         ...prev,
                         facialExpressions: {
                           ...prev.facialExpressions,
-                          [expression.emoji]: value,
+                          [expression.name]: value,
                         },
                       }))
                     }
