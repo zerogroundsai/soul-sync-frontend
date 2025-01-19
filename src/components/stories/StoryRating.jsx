@@ -398,6 +398,7 @@ export function StoryRating() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState("sentiments");
   const [isConfidenceCollapsed, setIsConfidenceCollapsed] = useState(false);
+  const [skippedStoriesCount, setSkippedStoriesCount] = useState(0);
 
   useEffect(() => {
     if (!token) {
@@ -602,8 +603,13 @@ export function StoryRating() {
 
       const { nextStory } = await skipResponse.json();
 
+      // Increment skip count
+      setSkippedStoriesCount((prev) => prev + 1);
+
+      // If there's no next story, navigate to completion page
       if (!nextStory) {
-        throw new Error("No next story received");
+        navigate("/completion");
+        return;
       }
 
       console.log("Next story data:", nextStory);
@@ -642,7 +648,7 @@ export function StoryRating() {
           </button>
           <h1 className="app-logo">Soul Sync Data Tool</h1>
           <button className="skip-button" onClick={handleSkip}>
-            Skip
+            Skip ({skippedStoriesCount})
           </button>
           <div className="story-counter">
             {completedStoriesCount}/{totalStoriesCount}
@@ -656,7 +662,7 @@ export function StoryRating() {
           <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
           <div className="mobile-actions">
             <button className="skip-button" onClick={handleSkip}>
-              Skip
+              Skip ({skippedStoriesCount})
             </button>
             <div className="story-counter">
               {completedStoriesCount}/{totalStoriesCount}
@@ -680,7 +686,7 @@ export function StoryRating() {
           </button>
           <h1 className="app-logo">Soul Sync Data Tool</h1>
           <button className="skip-button" onClick={handleSkip}>
-            Skip
+            Skip ({skippedStoriesCount})
           </button>
           <div className="story-counter">
             {completedStoriesCount}/{totalStoriesCount}
@@ -694,7 +700,7 @@ export function StoryRating() {
           <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
           <div className="mobile-actions">
             <button className="skip-button" onClick={handleSkip}>
-              Skip
+              Skip ({skippedStoriesCount})
             </button>
             <div className="story-counter">
               {completedStoriesCount}/{totalStoriesCount}
@@ -717,7 +723,7 @@ export function StoryRating() {
         </button>
         <h1 className="app-logo">Soul Sync Data Tool</h1>
         <button className="skip-button" onClick={handleSkip}>
-          Skip
+          Skip ({skippedStoriesCount})
         </button>
         <div className="story-counter">
           {completedStoriesCount}/{totalStoriesCount}
@@ -731,7 +737,7 @@ export function StoryRating() {
         <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
         <div className="mobile-actions">
           <button className="skip-button" onClick={handleSkip}>
-            Skip
+            Skip ({skippedStoriesCount})
           </button>
           <div className="story-counter">
             {completedStoriesCount}/{totalStoriesCount}
