@@ -438,6 +438,7 @@ export function StoryRating() {
 
   const fetchNextStory = async () => {
     try {
+      console.log("Fetching next story...");
       setLoading(true);
       setError(null);
       const response = await fetch(
@@ -450,11 +451,13 @@ export function StoryRating() {
         }
       );
 
+      console.log("API Response:", response);
       if (!response.ok) {
         throw new Error("Failed to fetch story");
       }
 
       const data = await response.json();
+      console.log("Next story data:", data);
       setCurrentStory(data);
       setActiveStoryId(data._id);
       setCurrentStep("sentiments");
@@ -465,6 +468,7 @@ export function StoryRating() {
         overallConfidence: 0.5,
       });
     } catch (error) {
+      console.error("Error fetching next story:", error);
       setError(error.message);
       if (error.response?.status === 401) {
         navigate("/login");
@@ -571,10 +575,31 @@ export function StoryRating() {
 
   const handleSkip = async () => {
     try {
+      console.log("Skip button clicked");
       setLoading(true);
       setError(null);
+
+      // Call the skip endpoint with current story ID
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/stories/next`,
+        `${import.meta.env.VITE_API_URL}/api/stories/${currentStory._id}/skip`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      console.log("Skip API Response:", response);
+      if (!response.ok) {
+        throw new Error("Failed to skip story");
+      }
+
+      // Get the next story after skipping
+      const nextStoryResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/stories/random`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -583,11 +608,14 @@ export function StoryRating() {
         }
       );
 
-      if (!response.ok) {
+      if (!nextStoryResponse.ok) {
         throw new Error("Failed to fetch next story");
       }
 
-      const data = await response.json();
+      const data = await nextStoryResponse.json();
+      console.log("Next random story data:", data);
+
+      // Update the current story and reset ratings
       setCurrentStory(data);
       setActiveStoryId(data._id);
       setCurrentStep("sentiments");
@@ -597,8 +625,12 @@ export function StoryRating() {
         facialExpressions: {},
         overallConfidence: 0.5,
       });
+
+      // Update user progress
       await fetchUserProgress();
+      console.log("Skip operation completed");
     } catch (error) {
+      console.error("Error in handleSkip:", error);
       setError(error.message);
       if (error.response?.status === 401) {
         navigate("/login");
@@ -629,8 +661,13 @@ export function StoryRating() {
             Logout
           </button>
           <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
-          <div className="story-counter">
-            {completedStoriesCount}/{totalStoriesCount}
+          <div className="mobile-actions">
+            <button className="skip-button" onClick={handleSkip}>
+              Skip
+            </button>
+            <div className="story-counter">
+              {completedStoriesCount}/{totalStoriesCount}
+            </div>
           </div>
         </div>
 
@@ -662,8 +699,13 @@ export function StoryRating() {
             Logout
           </button>
           <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
-          <div className="story-counter">
-            {completedStoriesCount}/{totalStoriesCount}
+          <div className="mobile-actions">
+            <button className="skip-button" onClick={handleSkip}>
+              Skip
+            </button>
+            <div className="story-counter">
+              {completedStoriesCount}/{totalStoriesCount}
+            </div>
           </div>
         </div>
 
@@ -694,8 +736,13 @@ export function StoryRating() {
           Logout
         </button>
         <h1 className="mobile-app-title">Soul Sync Data Tool</h1>
-        <div className="story-counter">
-          {completedStoriesCount}/{totalStoriesCount}
+        <div className="mobile-actions">
+          <button className="skip-button" onClick={handleSkip}>
+            Skip
+          </button>
+          <div className="story-counter">
+            {completedStoriesCount}/{totalStoriesCount}
+          </div>
         </div>
       </div>
 

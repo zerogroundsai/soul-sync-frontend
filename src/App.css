@@ -1547,3 +1547,23 @@
     margin-left: 0;
   }
 }
+
+.mobile-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mobile-actions .skip-button {
+  position: static;
+  transform: none;
+}
+
+.mobile-actions .story-counter {
+  position: static;
+  transform: none;
+}
