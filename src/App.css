@@ -308,6 +308,7 @@
 .story-container {
   max-width: 1200px;
   margin: 0 auto 1.5rem;
+  padding: 2rem;
   background: rgba(27, 27, 45, 0.9);
   backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -344,6 +345,16 @@
   flex-direction: column;
   max-height: calc(100vh - 400px); /* Limit height for scrolling */
   position: relative; /* For fixed header */
+}
+
+.story-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sentiment-title {
+  margin-right: 1rem;
 }
 
 .sentiment-title {
@@ -1428,4 +1439,111 @@
 
 .logout-button:hover {
   background-color: var(--accent-hover);
+}
+
+.skip-button {
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--accent-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto;
+}
+
+.skip-button:hover {
+  background-color: var(--accent-hover);
+}
+
+@media (max-width: 768px) {
+  .story-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+    padding-top: 0.5rem;
+  }
+
+  .skip-button {
+    margin-left: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .story-header {
+    padding: 0.5rem 0.25rem;
+  }
+}
+
+.desktop-header {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(27, 27, 45, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1003;
+  box-shadow: var(--shadow-md);
+  padding: 0 2rem;
+}
+
+.desktop-header .app-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Show desktop header on non-mobile screens */
+@media (min-width: 769px) {
+  .desktop-header {
+    display: block;
+  }
+
+  .mobile-app-header {
+    display: none;
+  }
+
+  .main-content {
+    padding-top: calc(60px + 2rem);
+  }
+
+  /* Adjust the story counter for desktop */
+  .story-counter {
+    position: fixed;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+  }
+
+  /* Adjust the logout button for desktop */
+  .logout-button {
+    position: fixed;
+    top: 50%;
+    left: 2rem;
+    transform: translateY(-50%);
+  }
+
+  /* Adjust the skip button for desktop */
+  .skip-button {
+    position: fixed;
+    top: 50%;
+    right: 8rem; /* Position it to the left of the story counter */
+    transform: translateY(-50%);
+    margin-left: 0;
+  }
 }

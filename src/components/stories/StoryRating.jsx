@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { Button, Text, Title, Slider, Box, Stack } from "@mantine/core";
+import { Button, Text, Title, Slider } from "@mantine/core";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useMediaQuery } from "@mantine/hooks";
 
 // Sentiment definitions with enhanced descriptions and mobile-friendly layout
 const SENTIMENTS = [
@@ -399,7 +398,6 @@ export function StoryRating() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState("sentiments");
   const [isConfidenceCollapsed, setIsConfidenceCollapsed] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     if (!token) {
@@ -408,17 +406,6 @@ export function StoryRating() {
     }
     fetchUserProgress();
   }, [token]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 768) {
-        setIsSidebarVisible(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const fetchUserProgress = async () => {
     try {
@@ -582,9 +569,61 @@ export function StoryRating() {
     navigate("/login");
   };
 
+  const handleSkip = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/stories/next`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch next story");
+      }
+
+      const data = await response.json();
+      setCurrentStory(data);
+      setActiveStoryId(data._id);
+      setCurrentStep("sentiments");
+      setRatings({
+        sentiments: {},
+        tones: {},
+        facialExpressions: {},
+        overallConfidence: 0.5,
+      });
+      await fetchUserProgress();
+    } catch (error) {
+      setError(error.message);
+      if (error.response?.status === 401) {
+        navigate("/login");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="app-container">
+        <div className="desktop-header">
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
+          <h1 className="app-logo">Soul Sync Data Tool</h1>
+          <button className="skip-button" onClick={handleSkip}>
+            Skip
+          </button>
+          <div className="story-counter">
+            {completedStoriesCount}/{totalStoriesCount}
+          </div>
+        </div>
+
         <div className="mobile-app-header">
           <button className="logout-button" onClick={handleLogout}>
             Logout
@@ -605,6 +644,19 @@ export function StoryRating() {
   if (error) {
     return (
       <div className="app-container">
+        <div className="desktop-header">
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
+          <h1 className="app-logo">Soul Sync Data Tool</h1>
+          <button className="skip-button" onClick={handleSkip}>
+            Skip
+          </button>
+          <div className="story-counter">
+            {completedStoriesCount}/{totalStoriesCount}
+          </div>
+        </div>
+
         <div className="mobile-app-header">
           <button className="logout-button" onClick={handleLogout}>
             Logout
@@ -624,6 +676,19 @@ export function StoryRating() {
 
   return (
     <div className="app-container">
+      <div className="desktop-header">
+        <button className="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
+        <h1 className="app-logo">Soul Sync Data Tool</h1>
+        <button className="skip-button" onClick={handleSkip}>
+          Skip
+        </button>
+        <div className="story-counter">
+          {completedStoriesCount}/{totalStoriesCount}
+        </div>
+      </div>
+
       <div className="mobile-app-header">
         <button className="logout-button" onClick={handleLogout}>
           Logout
@@ -636,9 +701,11 @@ export function StoryRating() {
 
       <div className={`main-content`}>
         <div className="story-container">
-          <Title order={3} className="sentiment-title">
-            User Story
-          </Title>
+          <div className="story-header">
+            <Title order={3} className="sentiment-title">
+              User Story
+            </Title>
+          </div>
           <Text className="story-text">{currentStory?.text}</Text>
         </div>
 
