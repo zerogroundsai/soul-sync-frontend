@@ -579,7 +579,11 @@ export function StoryRating() {
       setLoading(true);
       setError(null);
 
-      // First, mark the current story as skipped
+      if (!currentStory?._id) {
+        throw new Error("No story to skip");
+      }
+
+      // Call skip endpoint which will also return the next story
       const skipResponse = await fetch(
         `${import.meta.env.VITE_API_URL}/api/stories/${currentStory._id}/skip`,
         {
@@ -592,30 +596,21 @@ export function StoryRating() {
       );
 
       if (!skipResponse.ok) {
-        throw new Error("Failed to skip story");
+        const errorData = await skipResponse.json();
+        throw new Error(errorData.message || "Failed to skip story");
       }
 
-      // Then fetch a new story
-      const nextStoryResponse = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/stories/next`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        }
-      );
+      const { nextStory } = await skipResponse.json();
 
-      if (!nextStoryResponse.ok) {
-        throw new Error("Failed to fetch next story");
+      if (!nextStory) {
+        throw new Error("No next story received");
       }
 
-      const data = await nextStoryResponse.json();
-      console.log("Next story data:", data);
+      console.log("Next story data:", nextStory);
 
       // Update the current story and reset ratings
-      setCurrentStory(data);
-      setActiveStoryId(data._id);
+      setCurrentStory(nextStory);
+      setActiveStoryId(nextStory._id);
       setCurrentStep("sentiments");
       setRatings({
         sentiments: {},
