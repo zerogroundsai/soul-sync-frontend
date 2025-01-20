@@ -533,17 +533,17 @@ export function StoryRating() {
 
       const sentimentData = SENTIMENTS.map((sentiment) => ({
         name: sentiment.name,
-        value: ratings.sentiments[sentiment.name] || 0.5,
+        value: ratings.sentiments[sentiment.name] ?? 0.5,
       }));
 
       const toneData = TONES.map((tone) => ({
         name: tone.name,
-        value: ratings.tones[tone.name] || 0.5,
+        value: ratings.tones[tone.name] ?? 0.5,
       }));
 
       const facialExpressionData = FACIAL_EXPRESSIONS.map((expression) => ({
         name: expression.name,
-        value: ratings.facialExpressions[expression.name] || 0.5,
+        value: ratings.facialExpressions[expression.name] ?? 0.5,
       }));
 
       const requestBody = {
@@ -869,21 +869,14 @@ export function StoryRating() {
                   <div className="sentiment-header">
                     <Text className="sentiment-name">{sentiment.name}</Text>
                     <Text className="sentiment-value">
-                      {(ratings.sentiments[sentiment.name] !== undefined
-                        ? ratings.sentiments[sentiment.name]
-                        : 0.5
-                      ).toFixed(4)}
+                      {(ratings.sentiments[sentiment.name] ?? 0.5).toFixed(4)}
                     </Text>
                   </div>
                   <Text className="sentiment-description">
                     {sentiment.description}
                   </Text>
                   <Slider
-                    value={
-                      ratings.sentiments[sentiment.name] !== undefined
-                        ? ratings.sentiments[sentiment.name]
-                        : 0.5
-                    }
+                    value={ratings.sentiments[sentiment.name] ?? 0.5}
                     onChange={(value) =>
                       setRatings((prev) => ({
                         ...prev,
@@ -929,21 +922,14 @@ export function StoryRating() {
                   <div className="sentiment-header">
                     <Text className="sentiment-name">{tone.name}</Text>
                     <Text className="sentiment-value">
-                      {(ratings.tones[tone.name] !== undefined
-                        ? ratings.tones[tone.name]
-                        : 0.5
-                      ).toFixed(4)}
+                      {(ratings.tones[tone.name] ?? 0.5).toFixed(4)}
                     </Text>
                   </div>
                   <Text className="sentiment-description">
                     {tone.description}
                   </Text>
                   <Slider
-                    value={
-                      ratings.tones[tone.name] !== undefined
-                        ? ratings.tones[tone.name]
-                        : 0.5
-                    }
+                    value={ratings.tones[tone.name] ?? 0.5}
                     onChange={(value) =>
                       setRatings((prev) => ({
                         ...prev,
@@ -996,9 +982,8 @@ export function StoryRating() {
                       <Text className="sentiment-name">{expression.name}</Text>
                     </div>
                     <Text className="sentiment-value">
-                      {(ratings.facialExpressions[expression.name] !== undefined
-                        ? ratings.facialExpressions[expression.name]
-                        : 0.5
+                      {(
+                        ratings.facialExpressions[expression.name] ?? 0.5
                       ).toFixed(4)}
                     </Text>
                   </div>
@@ -1006,11 +991,7 @@ export function StoryRating() {
                     {expression.description}
                   </Text>
                   <Slider
-                    value={
-                      ratings.facialExpressions[expression.name] !== undefined
-                        ? ratings.facialExpressions[expression.name]
-                        : 0.5
-                    }
+                    value={ratings.facialExpressions[expression.name] ?? 0.5}
                     onChange={(value) =>
                       setRatings((prev) => ({
                         ...prev,
