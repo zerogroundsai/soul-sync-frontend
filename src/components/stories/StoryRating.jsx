@@ -502,11 +502,21 @@ export function StoryRating() {
 
       console.log("API Response:", response);
       if (!response.ok) {
+        if (response.status === 404) {
+          navigate("/completion");
+          return;
+        }
         throw new Error("Failed to fetch story");
       }
 
       const data = await response.json();
       console.log("Next story data:", data);
+
+      if (!data || !data._id) {
+        navigate("/completion");
+        return;
+      }
+
       setCurrentStory(data);
       setActiveStoryId(data._id);
       setCurrentStep("sentiments");
@@ -518,6 +528,10 @@ export function StoryRating() {
       });
     } catch (error) {
       console.error("Error fetching next story:", error);
+      if (error.message === "No more stories available") {
+        navigate("/completion");
+        return;
+      }
       setError(error.message);
       if (error.response?.status === 401) {
         navigate("/login");
@@ -719,7 +733,11 @@ export function StoryRating() {
         </div>
 
         <div className={`main-content`}>
-          <Text>Loading story...</Text>
+          <div className="story-container">
+            <Text style={{ textAlign: "center", marginTop: "2rem" }}>
+              Checking for available stories...
+            </Text>
+          </div>
         </div>
       </div>
     );
@@ -757,7 +775,23 @@ export function StoryRating() {
         </div>
 
         <div className={`main-content`}>
-          <Text>Error: {error}</Text>
+          <div className="story-container">
+            <Title
+              order={3}
+              style={{ textAlign: "center", marginBottom: "1rem" }}
+            >
+              Thank You for Your Contribution!
+            </Title>
+            <Text style={{ textAlign: "center", marginBottom: "2rem" }}>
+              You have already rated all available stories. We appreciate your
+              valuable input!
+            </Text>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button className="button-logout" onClick={handleLogout}>
+                Logout
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     );
