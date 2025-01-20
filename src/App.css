@@ -1278,6 +1278,12 @@
   justify-content: center;
   background-color: var(--background-dark);
   padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
 }
 
 .welcome-content {
@@ -1286,8 +1292,10 @@
   padding: 1.5rem;
   box-shadow: var(--shadow-md);
   max-width: 600px;
-  width: 100%;
+  width: 95%;
   margin: 0 auto;
+  overflow-y: auto;
+  max-height: 90vh;
 }
 
 .welcome-title {
@@ -1325,18 +1333,19 @@
   padding-left: 1.5rem;
 }
 
-/* Mobile Responsive Styles */
 @media (max-width: 768px) {
   .welcome-container {
-    padding: 0.75rem;
+    padding: 1rem;
   }
 
   .welcome-content {
     padding: 1.25rem;
+    width: 92%;
+    max-height: 85vh;
   }
 
   .welcome-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 1rem;
   }
 
@@ -1345,37 +1354,21 @@
   }
 
   .welcome-list li {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     margin-bottom: 0.875rem;
+    padding-left: 1.25rem;
   }
 }
 
-/* Small Mobile Screens */
 @media (max-width: 480px) {
   .welcome-container {
-    padding: 0.5rem;
+    padding: 0.75rem;
   }
 
   .welcome-content {
     padding: 1rem;
-  }
-
-  .welcome-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.875rem;
-  }
-
-  .instructions-block {
-    margin-top: 1rem;
-  }
-
-  .section-title {
-    font-size: 0.9375rem;
-  }
-
-  .welcome-list li {
-    font-size: 0.75rem;
-    margin-bottom: 0.75rem;
+    width: 90%;
+    max-height: 82vh;
   }
 }
 
