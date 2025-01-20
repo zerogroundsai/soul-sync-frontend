@@ -932,49 +932,60 @@ export function StoryRating() {
               Sentiments
             </Title>
             <div className="sentiment-grid">
-              {SENTIMENTS.map((sentiment) => (
-                <div key={sentiment.name} className="sentiment-item">
-                  <div className="sentiment-header">
-                    <Text className="sentiment-name">{sentiment.name}</Text>
-                    <Text className="sentiment-value">
-                      {(ratings.sentiments[sentiment.name] ?? 0.5).toFixed(4)}
+              {SENTIMENTS.map((sentiment) => {
+                const isMatchingCategory =
+                  currentStory?.category === sentiment.name;
+                const sliderValue = isMatchingCategory
+                  ? 1
+                  : ratings.sentiments[sentiment.name] ?? 0.5;
+                return (
+                  <div key={sentiment.name} className="sentiment-item">
+                    <div className="sentiment-header">
+                      <Text className="sentiment-name">{sentiment.name}</Text>
+                      <Text className="sentiment-value">
+                        {sliderValue.toFixed(4)}
+                      </Text>
+                    </div>
+                    <Text className="sentiment-description">
+                      {sentiment.description}
                     </Text>
-                  </div>
-                  <Text className="sentiment-description">
-                    {sentiment.description}
-                  </Text>
-                  <Slider
-                    value={ratings.sentiments[sentiment.name] ?? 0.5}
-                    onChange={(value) =>
-                      setRatings((prev) => ({
-                        ...prev,
-                        sentiments: {
-                          ...prev.sentiments,
-                          [sentiment.name]: value,
+                    <Slider
+                      value={sliderValue}
+                      onChange={(value) => {
+                        if (!isMatchingCategory) {
+                          setRatings((prev) => ({
+                            ...prev,
+                            sentiments: {
+                              ...prev.sentiments,
+                              [sentiment.name]: value,
+                            },
+                          }));
+                        }
+                      }}
+                      min={0}
+                      max={1}
+                      step={0.0001}
+                      label={null}
+                      precision={4}
+                      disabled={isMatchingCategory}
+                      styles={{
+                        track: { backgroundColor: "rgba(255, 255, 255, 0.1)" },
+                        bar: {
+                          background: sentiment.positive
+                            ? "linear-gradient(90deg, #EF4444 0%, #22C55E 100%)"
+                            : "linear-gradient(90deg, #22C55E 0%, #EF4444 100%)",
                         },
-                      }))
-                    }
-                    min={0}
-                    max={1}
-                    step={0.0001}
-                    label={null}
-                    precision={4}
-                    styles={{
-                      track: { backgroundColor: "rgba(255, 255, 255, 0.1)" },
-                      bar: {
-                        background: sentiment.positive
-                          ? "linear-gradient(90deg, #EF4444 0%, #22C55E 100%)"
-                          : "linear-gradient(90deg, #22C55E 0%, #EF4444 100%)",
-                      },
-                      thumb: {
-                        borderColor: "#FFFFFF",
-                        width: 24,
-                        height: 24,
-                      },
-                    }}
-                  />
-                </div>
-              ))}
+                        thumb: {
+                          borderColor: "#FFFFFF",
+                          width: 24,
+                          height: 24,
+                          opacity: isMatchingCategory ? 0.5 : 1,
+                        },
+                      }}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
