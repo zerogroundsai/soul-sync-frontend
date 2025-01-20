@@ -39,7 +39,12 @@ export function LoginForm() {
       await login(email, mode === "signup" ? name : "", pin);
       navigate("/");
     } catch (error) {
-      setError(error.message);
+      if (error.message.includes("Email not found")) {
+        setMode("signup");
+        setError("Please sign up with your name to create a new account");
+      } else {
+        setError(error.message);
+      }
     } finally {
       setIsLoading(false);
     }
