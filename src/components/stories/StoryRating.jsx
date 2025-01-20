@@ -541,80 +541,6 @@ export function StoryRating() {
     }
   };
 
-  const handleSubmit = async () => {
-    try {
-      setLoading(true);
-
-      const sentimentData = SENTIMENTS.map((sentiment) => ({
-        name: sentiment.name,
-        value: ratings.sentiments[sentiment.name] ?? 0.5,
-      }));
-
-      const toneData = TONES.map((tone) => ({
-        name: tone.name,
-        value: ratings.tones[tone.name] ?? 0.5,
-      }));
-
-      const facialExpressionData = FACIAL_EXPRESSIONS.map((expression) => ({
-        name: expression.name,
-        value: ratings.facialExpressions[expression.name] ?? 0.5,
-      }));
-
-      const requestBody = {
-        sentiments: sentimentData,
-        tones: toneData,
-        facialExpressions: facialExpressionData,
-        overallConfidence: ratings.overallConfidence,
-      };
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/stories/${currentStory._id}/rate`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error response:", errorData);
-        throw new Error(errorData.message || "Failed to submit rating");
-      }
-
-      setStories((prevStories) =>
-        prevStories.map((story) =>
-          story._id === currentStory._id
-            ? { ...story, isCompleted: true }
-            : story
-        )
-      );
-
-      const updatedStories = stories.map((story) =>
-        story._id === currentStory._id ? { ...story, isCompleted: true } : story
-      );
-
-      const allCompleted = updatedStories.every((story) => story.isCompleted);
-
-      if (allCompleted) {
-        navigate("/completion");
-      } else {
-        fetchNextStory();
-      }
-    } catch (error) {
-      setError(error.message);
-      if (error.response?.status === 401) {
-        navigate("/login");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleNext = async () => {
     let confirmMessage = "";
 
@@ -649,9 +575,79 @@ export function StoryRating() {
 
     if (currentStep === "confidence") {
       try {
-        // ... existing submission logic ...
-      } catch (error) {
-        // ... existing error handling ...
+        setLoading(true);
+
+        const sentimentData = SENTIMENTS.map((sentiment) => ({
+          name: sentiment.name,
+          value: ratings.sentiments[sentiment.name] ?? 0.5,
+        }));
+
+        const toneData = TONES.map((tone) => ({
+          name: tone.name,
+          value: ratings.tones[tone.name] ?? 0.5,
+        }));
+
+        const facialExpressionData = FACIAL_EXPRESSIONS.map((expression) => ({
+          name: expression.name,
+          value: ratings.facialExpressions[expression.name] ?? 0.5,
+        }));
+
+        const requestBody = {
+          sentiments: sentimentData,
+          tones: toneData,
+          facialExpressions: facialExpressionData,
+          overallConfidence: ratings.overallConfidence,
+        };
+
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/stories/${
+            currentStory._id
+          }/rate`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(requestBody),
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Error response:", errorData);
+          throw new Error(errorData.message || "Failed to submit rating");
+        }
+
+        setStories((prevStories) =>
+          prevStories.map((story) =>
+            story._id === currentStory._id
+              ? { ...story, isCompleted: true }
+              : story
+          )
+        );
+
+        const updatedStories = stories.map((story) =>
+          story._id === currentStory._id
+            ? { ...story, isCompleted: true }
+            : story
+        );
+
+        const allCompleted = updatedStories.every((story) => story.isCompleted);
+
+        if (allCompleted) {
+          navigate("/completion");
+        } else {
+          fetchNextStory();
+        }
+      } catch (submitError) {
+        setError(submitError.message);
+        if (submitError.response?.status === 401) {
+          navigate("/login");
+        }
+      } finally {
+        setLoading(false);
       }
     } else {
       // Update step based on current step
