@@ -615,15 +615,53 @@ export function StoryRating() {
     }
   };
 
-  const handleNext = () => {
-    if (currentStep === "sentiments") {
-      setCurrentStep("tones");
-    } else if (currentStep === "tones") {
-      setCurrentStep("facialExpressions");
-    } else if (currentStep === "facialExpressions") {
-      setCurrentStep("confidence");
+  const handleNext = async () => {
+    let confirmMessage = "";
+
+    // Set confirmation message based on current step
+    switch (currentStep) {
+      case "sentiments":
+        confirmMessage =
+          "Have you rated all the sentiments? Click OK to proceed to Tones.";
+        break;
+      case "tones":
+        confirmMessage =
+          "Have you rated all the tones? Click OK to proceed to Facial Expressions.";
+        break;
+      case "facialExpressions":
+        confirmMessage =
+          "Have you selected the facial expression? Click OK to proceed to Overall Confidence.";
+        break;
+      case "confidence":
+        confirmMessage =
+          "Are you sure you want to submit your ratings for this story?";
+        break;
+      default:
+        break;
+    }
+
+    // Show confirmation dialog
+    if (!window.confirm(confirmMessage)) {
+      return; // If user clicks Cancel, don't proceed
+    }
+
+    setError(null);
+
+    if (currentStep === "confidence") {
+      try {
+        // ... existing submission logic ...
+      } catch (error) {
+        // ... existing error handling ...
+      }
     } else {
-      handleSubmit();
+      // Update step based on current step
+      if (currentStep === "sentiments") {
+        setCurrentStep("tones");
+      } else if (currentStep === "tones") {
+        setCurrentStep("facialExpressions");
+      } else if (currentStep === "facialExpressions") {
+        setCurrentStep("confidence");
+      }
     }
   };
 
