@@ -1066,9 +1066,9 @@ export function StoryRating() {
                       ).toFixed(4)}
                     </Text>
                   </div>
-                  <Text className="sentiment-description">
+                  {/* <Text className="sentiment-description">
                     {expression.description}
-                  </Text>
+                  </Text> */}
                   <Slider
                     value={ratings.facialExpressions[expression.name] ?? 0.5}
                     onChange={(value) =>
