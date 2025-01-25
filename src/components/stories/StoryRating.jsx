@@ -885,7 +885,9 @@ export function StoryRating() {
                 Overall Confidence
               </Title>
               <Text className="cl-value-description">
-                Your confidence level in the overall story.
+                Your confidence level in the overall story, the person's sense
+                of control, certainty, and belief in their ability to handle the
+                situation, .
               </Text>
             </div>
             <div className="confidence-content">
