@@ -1060,7 +1060,7 @@ export function StoryRating() {
                         alt={expression.name}
                         className="expression-emoji"
                       />
-                      <Text className="sentiment-name">{expression.name}</Text>
+                      {/* <Text className="sentiment-name">{expression.name}</Text> */}
                     </div>
                     <Text className="sentiment-value">
                       {(
