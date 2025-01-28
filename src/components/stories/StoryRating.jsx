@@ -948,9 +948,9 @@ export function StoryRating() {
                         {sliderValue.toFixed(4)}
                       </Text>
                     </div>
-                    <Text className="sentiment-description">
+                    {/* <Text className="sentiment-description">
                       {sentiment.description}
-                    </Text>
+                    </Text> */}
                     <Slider
                       value={sliderValue}
                       onChange={(value) => {
